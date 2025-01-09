@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "titulo": "Programa AMITY por Becas Salvadoreño Americano (SASP)",
+    "descripcion": "Programa que permite a estudiantes convertirse en asistentes de español en escuelas estadounidenses..",
+    "imagen": "images/beca1.jpeg",
+    "link": "beca_amity.html"
+  },
+  {
+    "id": 2,
+    "titulo": "Beca UGRAD - Totalmente financiada",
+    "descripcion": "Programa para jóvenes líderes que ofrece un semestre de estudios académicos en una universidad de EE.UU.",
+    "imagen": "images/beca2.jpeg",
+    "link": "beca_ugrad.html"
+  },
+  {
+    "id": 3,
+    "titulo": "Institutos de Estudio de Estados Unidos (SUSI) 2023",
+    "descripcion": "Programa que brinda a jóvenes líderes la oportunidad de aumentar su conocimiento sobre la historia y cultura de EE.UU.",
+    "imagen": "images/beca3.jpeg",
+    "link": "beca_susi.html"
+  },
+  {
+    "id": 4,
+    "titulo": "Programa de Becas YLAI",
+    "descripcion": "Programa para emprendedores que desarrolla habilidades para promover ideas empresariales y fortalecer negocios.",
+    "imagen": "images/beca4.jpeg",
+    "link": "beca_ylai.html"
+  }
+]

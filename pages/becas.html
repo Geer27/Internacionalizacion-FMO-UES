@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Becas | Programa de Internacionalización UES</title>
+  <link rel="icon" href="../images/Ues logo.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-title {
+      min-height: 60px;
+    }
+    .card-text {
+      min-height: 80px;
+    }
+    .btn-primary {
+      background-color: black;
+      border-color: black;
+    }
+    .btn-primary:hover {
+      background-color: #727374;
+      border-color: #5e5e5e;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Oscura con animación en el texto -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #000;">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
+        <span>Internacionalización UES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Alternar navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="becas.html">Becas</a></li>
+          <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
+          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="container my-5">
+    <h1 class="text-center mb-4">Becas</h1>
+
+    <!-- Fila de tarjetas (se generarán dinámicamente) -->
+    <div class="row row-cols-1 row-cols-md-2 g-4" id="becas-container">
+      <!-- Tarjetas se inyectan aquí con JS -->
+    </div>
+
+    <!-- Política -->
+    <div class="alert alert-warning mt-5" role="alert">
+      <strong>Política:</strong> Somos una oficina que tiene como objetivo proveer información sobre becas. 
+      Los trámites de aplicación son responsabilidad de la persona interesada. Por lo que 
+      <strong>no</strong> tenemos ninguna responsabilidad de cualquier tipo de inconveniente, 
+      estafa o trampa. Favor informarse bien antes de realizar algún procedimiento y verificar 
+      que la fuente sea real y verídica.
+    </div>
+  </main>
+
+  <!-- Footer Oscuro -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2024 Universidad de El Salvador</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+  <script>
+    // Al cargar la página, pedimos las becas al servidor
+    fetch('/api/becas')
+      .then(res => res.json())
+      .then(becas => {
+        const container = document.getElementById('becas-container');
+        becas.forEach(beca => {
+          const col = document.createElement('div');
+          col.className = 'col';
+
+          // Recuerda que "imagen" y "link" vendrán de tu JSON
+          col.innerHTML = `
+            <div class="card h-100">
+              <img src="../${beca.imagen}" 
+                   class="card-img-top" 
+                   alt="${beca.titulo}">
+              <div class="card-body">
+                <h5 class="card-title">${beca.titulo}</h5>
+                <p class="card-text">
+                  <strong>Descripción:</strong> ${beca.descripcion}
+                </p>
+              </div>
+              <div class="card-footer text-end bg-white border-0">
+                <a href="${beca.link}" class="btn btn-primary">
+                  Ver más
+                </a>
+              </div>
+            </div>
+          `;
+
+          container.appendChild(col);
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>

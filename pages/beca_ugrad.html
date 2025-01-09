@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Beca UGRAD | Becas UES</title>
+  <link rel="icon" href="../images/Ues logo.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tu archivo CSS -->
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+    /* Estilos personalizados similares a beca_amity.html */
+
+    /* Enlaces y checks con color vino */
+    a {
+      color: #7D1B3A;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #6B1632;
+      text-decoration: underline;
+    }
+
+    .list-custom li {
+      position: relative;
+      padding-left: 25px;
+    }
+    .list-custom li::before {
+      content: "\2713";
+      color: #7D1B3A;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* Si deseas estilo para la política similar a beca_amity.html, puedes usar .policy-alert */
+    .policy-alert {
+      background-color: #fff3cd;
+      border-color: #ffeeba;
+    }
+
+    /* Ajustes para la imagen */
+    .card-img-top {
+      height: 400px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Oscura con animación en el texto -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
+        <span>Internacionalización UES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Alternar navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
+          <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
+          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="container my-5">
+    <h1 class="text-center mb-4">Beca UGRAD - Totalmente financiada</h1>
+
+    <div class="card mb-5">
+      <img src="../images/beca2.jpeg" class="card-img-top" alt="Imagen Beca UGRAD">
+      <div class="card-body">
+        <p class="card-text">
+          <strong>Fecha límite:</strong> Normalmente la convocatoria se abre entre noviembre y diciembre de cada año.
+        </p>
+        <p class="card-text">
+          <strong>Descripción:</strong> Este programa de becas está diseñado para jóvenes líderes que buscan ampliar sus horizontes académicos y profesionales mediante un semestre de estudios en una universidad de los Estados Unidos. La beca cubre todos los gastos académicos y proporciona una experiencia invaluable en el extranjero.
+          <br>Mayor información aquí: <a href="https://www.worldlearning.org/program/global-undergraduate-exchange-program/" target="_blank" rel="noopener">https://www.worldlearning.org/program/global-undergraduate-exchange-program/</a>
+          <br>O en su página de Facebook: <a href="https://www.facebook.com/GlobalUGRAD?mibextid=ZbWKwL" target="_blank" rel="noopener">Global UGRAD</a>
+        </p>
+        <p class="card-text"><strong>Requisitos:</strong></p>
+        <ul class="list-unstyled list-custom">
+          <li>Ser mayor de 18 años.</li>
+          <li>Ser ciudadano y estudiante del país en el que aplicas al Programa Global UGRAD.</li>
+          <li>Estar inscrito en una carrera universitaria de pregrado con al menos un año de estudios completados.</li>
+          <li>Tener un muy buen rendimiento académico.</li>
+          <li>Tener al menos un año de estudios pendiente por completar al regresar a tu institución de origen.</li>
+          <li>Demostrar potencial de liderazgo a través de actividades académicas, comunitarias y extracurriculares.</li>
+          <li>Tener cierto conocimiento del inglés (mínimo 61 en el TOEFL iBT).</li>
+          <li>Comprometerse a regresar al país al finalizar el programa.</li>
+        </ul>
+        <p class="card-text">
+          <strong>Aquí para aplicar:</strong> El proceso de aplicación es en línea. Debes crear una cuenta en: 
+          <a href="https://webportalapp.com/sp/login/ugrad_student_application_2022" target="_blank" rel="noopener">
+            https://webportalapp.com/sp/login/ugrad_student_application_2022
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Botón para regresar a la página de becas -->
+    <div class="text-center">
+      <a href="becas.html" class="btn">Volver a Becas</a>
+    </div>
+
+    <!-- Política -->
+    <div class="alert policy-alert mt-5" role="alert">
+      <strong>Política:</strong> Somos una oficina que provee información sobre becas. Los trámites de aplicación son responsabilidad del interesado. 
+      <strong>No</strong> asumimos responsabilidad por inconvenientes, estafas o engaños. Infórmate bien antes de proceder y verifica que la fuente sea fiable.
+    </div>
+
+  </main>
+
+  <!-- Footer Oscuro -->
+  <footer>
+    <p>&copy; 2024 Universidad de El Salvador</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
