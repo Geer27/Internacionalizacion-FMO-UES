@@ -12,7 +12,6 @@
   >
   <link rel="stylesheet" href="../css/styles.css">
   <style>
-    /* Estilos para la tabla y el formulario */
     .table thead th {
       background-color: #f5f5f5;
     }
@@ -25,47 +24,30 @@
   <div class="container my-5">
     <h1 class="mb-4">Administrar Becas</h1>
 
-    <!-- FORMULARIO para Crear/Editar Beca -->
     <form id="becaForm" class="mb-4">
-      <input type="hidden" id="becaId" value="">  <!-- Almacena el ID para Update -->
+      <input type="hidden" id="becaId">
 
       <div class="mb-3">
         <label for="titulo" class="form-label">Título de la Beca</label>
-        <input type="text" class="form-control" id="titulo" placeholder="Ej: Programa AMITY..." required>
+        <input type="text" class="form-control" id="titulo" required>
       </div>
-
       <div class="mb-3">
         <label for="fechaLimite" class="form-label">Fecha Límite</label>
-        <input type="text" class="form-control" id="fechaLimite" placeholder="Ej: Normalmente la convocatoria se abre en noviembre" required>
+        <input type="text" class="form-control" id="fechaLimite" required>
       </div>
-
       <div class="mb-3">
         <label for="descripcion" class="form-label">Descripción Principal</label>
-        <textarea class="form-control" id="descripcion" rows="3" placeholder="Breve descripción de la beca" required></textarea>
+        <textarea class="form-control" id="descripcion" rows="3" required></textarea>
       </div>
-
       <div class="mb-3">
         <label for="imagen" class="form-label">Ruta de Imagen</label>
-        <input type="text" class="form-control" id="imagen" placeholder="Ej: images/beca1.jpeg" required>
+        <input type="text" class="form-control" id="imagen" required>
       </div>
-
-      <div class="mb-3">
-        <label for="link" class="form-label">Link a la Página Detallada</label>
-        <input type="text" class="form-control" id="link" placeholder="Ej: pages/beca_amity.html" required>
-      </div>
-
-      <!-- Campos Adicionales según tus necesidades:
-           - Requisitos
-           - Costos
-           - "Mantente informado" 
-           - etc.
-         Si deseas guardarlos en el JSON, agrega nuevos inputs/textarea -->
 
       <button type="submit" class="btn btn-primary" id="saveBtn">Crear Beca</button>
-      <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none;">Cancelar Edición</button>
+      <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none;">Cancelar</button>
     </form>
 
-    <!-- TABLA con la lista de Becas -->
     <table class="table table-striped" id="becasTabla">
       <thead>
         <tr>
@@ -77,33 +59,27 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Se llena dinámicamente con JS -->
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 
   <!-- Bootstrap JS -->
   <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+  </script>
 
   <script>
     let becasData = [];
-
-    // Referencias al form y campos
     const becaIdInput = document.getElementById('becaId');
     const tituloInput = document.getElementById('titulo');
     const fechaLimiteInput = document.getElementById('fechaLimite');
     const descripcionInput = document.getElementById('descripcion');
     const imagenInput = document.getElementById('imagen');
-    const linkInput = document.getElementById('link');
 
     const saveBtn = document.getElementById('saveBtn');
     const cancelBtn = document.getElementById('cancelBtn');
     const becasTablaBody = document.querySelector('#becasTabla tbody');
 
-    // Cargar la lista de becas al iniciar
     function loadBecas() {
       fetch('/api/becas')
         .then(res => res.json())
@@ -114,7 +90,6 @@
         .catch(err => console.error(err));
     }
 
-    // Mostrar las becas en la tabla
     function renderTabla() {
       becasTablaBody.innerHTML = '';
       becasData.forEach(beca => {
@@ -124,7 +99,7 @@
           <td>${beca.titulo}</td>
           <td>${beca.fechaLimite || 'N/A'}</td>
           <td>${beca.imagen}</td>
-          <td>${beca.link}</td>
+          <td>${beca.link || ''}</td>
           <td>
             <button class="btn btn-warning btn-sm" onclick="editBeca(${beca.id})">Editar</button>
             <button class="btn btn-danger btn-sm" onclick="deleteBeca(${beca.id})">Eliminar</button>
@@ -134,7 +109,6 @@
       });
     }
 
-    // Crear/Actualizar Beca al enviar el form
     document.getElementById('becaForm').addEventListener('submit', e => {
       e.preventDefault();
 
@@ -142,8 +116,7 @@
         titulo: tituloInput.value,
         fechaLimite: fechaLimiteInput.value,
         descripcion: descripcionInput.value,
-        imagen: imagenInput.value,
-        link: linkInput.value
+        imagen: imagenInput.value
       };
 
       const id = becaIdInput.value;
@@ -157,8 +130,15 @@
         .then(res => res.json())
         .then(resp => {
           console.log(resp);
-          loadBecas();
-          resetForm();
+          // Si se creó con detailFile, redirigir a edit_detalle.html
+          if (resp.detailFile) {
+            // Por ejemplo: /admin/edit_detalle.html?file=beca_programa-amity.html
+            window.location.href = `edit_detalle.html?file=${resp.detailFile}`;
+          } else {
+            // Si no hay detailFile, solo recargamos
+            loadBecas();
+            resetForm();
+          }
         })
         .catch(err => console.error(err));
       } else {
@@ -178,24 +158,20 @@
       }
     });
 
-    // Cancelar edición
     cancelBtn.addEventListener('click', e => {
       resetForm();
     });
 
-    // Función para limpiar el form
     function resetForm() {
       becaIdInput.value = '';
       tituloInput.value = '';
       fechaLimiteInput.value = '';
       descripcionInput.value = '';
       imagenInput.value = '';
-      linkInput.value = '';
       saveBtn.textContent = 'Crear Beca';
       cancelBtn.style.display = 'none';
     }
 
-    // Editar Beca
     window.editBeca = function(id) {
       const beca = becasData.find(b => b.id === id);
       if (beca) {
@@ -204,29 +180,24 @@
         fechaLimiteInput.value = beca.fechaLimite || '';
         descripcionInput.value = beca.descripcion;
         imagenInput.value = beca.imagen;
-        linkInput.value = beca.link;
 
         saveBtn.textContent = 'Actualizar Beca';
         cancelBtn.style.display = 'inline-block';
       }
     };
 
-    // Eliminar Beca
     window.deleteBeca = function(id) {
       if (confirm('¿Estás seguro de eliminar esta beca?')) {
-        fetch('/api/becas/' + id, {
-          method: 'DELETE'
-        })
-        .then(res => res.json())
-        .then(resp => {
-          console.log(resp);
-          loadBecas();
-        })
-        .catch(err => console.error(err));
+        fetch('/api/becas/' + id, { method: 'DELETE' })
+          .then(res => res.json())
+          .then(resp => {
+            console.log(resp);
+            loadBecas();
+          })
+          .catch(err => console.error(err));
       }
     };
 
-    // Inicializamos
     loadBecas();
   </script>
 </body>

@@ -26,5 +26,13 @@
     "descripcion": "Programa para emprendedores que desarrolla habilidades para promover ideas empresariales y fortalecer negocios.",
     "imagen": "images/beca4.jpeg",
     "link": "beca_ylai.html"
+  },
+  {
+    "id": 5,
+    "titulo": "Beca cde",
+    "fechaLimite": "48",
+    "descripcion": "Se inscribve",
+    "imagen": "images/beca1.jpeg",
+    "link": "beca_beca-cde.html"
   }
 ]
