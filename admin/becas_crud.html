@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap CSS -->
   <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   >
   <link rel="stylesheet" href="../css/styles.css">
@@ -24,30 +24,38 @@
   <div class="container my-5">
     <h1 class="mb-4">Administrar Becas</h1>
 
-    <form id="becaForm" class="mb-4">
-      <input type="hidden" id="becaId">
+    <!-- FORMULARIO principal para CREAR una beca -->
+    <form id="becaForm" class="mb-4" enctype="multipart/form-data">
+      <input type="hidden" id="becaId" />
 
       <div class="mb-3">
         <label for="titulo" class="form-label">Título de la Beca</label>
-        <input type="text" class="form-control" id="titulo" required>
+        <input type="text" class="form-control" id="titulo" required />
       </div>
+
       <div class="mb-3">
         <label for="fechaLimite" class="form-label">Fecha Límite</label>
-        <input type="text" class="form-control" id="fechaLimite" required>
+        <input type="text" class="form-control" id="fechaLimite" required />
       </div>
+
       <div class="mb-3">
         <label for="descripcion" class="form-label">Descripción Principal</label>
         <textarea class="form-control" id="descripcion" rows="3" required></textarea>
       </div>
+
+      <!-- Subir un archivo de imagen para la beca -->
       <div class="mb-3">
-        <label for="imagen" class="form-label">Ruta de Imagen</label>
-        <input type="text" class="form-control" id="imagen" required>
+        <label for="archivoImagen" class="form-label">Subir Imagen</label>
+        <input type="file" class="form-control" id="archivoImagen" accept="image/*" />
       </div>
 
       <button type="submit" class="btn btn-primary" id="saveBtn">Crear Beca</button>
-      <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none;">Cancelar</button>
+      <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none;">
+        Cancelar
+      </button>
     </form>
 
+    <!-- TABLA con la lista de Becas existentes -->
     <table class="table table-striped" id="becasTabla">
       <thead>
         <tr>
@@ -63,6 +71,68 @@
     </table>
   </div>
 
+  <!-- MODAL para EDITAR Beca (ventana emergente) -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Form con multipart/form-data para subir nueva imagen -->
+        <form id="editForm" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Editar Beca</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+
+            <input type="hidden" id="editBecaId">
+
+            <!-- Campos principales -->
+            <div class="mb-3">
+              <label for="editTitulo" class="form-label">Título de la Beca</label>
+              <input type="text" class="form-control" id="editTitulo" required />
+            </div>
+
+            <div class="mb-3">
+              <label for="editFechaLimite" class="form-label">Fecha Límite</label>
+              <input type="text" class="form-control" id="editFechaLimite" required />
+            </div>
+
+            <div class="mb-3">
+              <label for="editDescripcion" class="form-label">Descripción Principal</label>
+              <textarea class="form-control" id="editDescripcion" rows="3" required></textarea>
+            </div>
+
+            <!-- Subir nueva imagen (opcional) -->
+            <div class="mb-3">
+              <label for="editArchivoImagen" class="form-label">Cambiar Imagen</label>
+              <input type="file" class="form-control" id="editArchivoImagen" accept="image/*" />
+            </div>
+
+            <!-- Requisitos -->
+            <div class="mb-3">
+              <label for="editRequisitos" class="form-label">Requisitos (uno por línea)</label>
+              <textarea class="form-control" id="editRequisitos" rows="3"></textarea>
+            </div>
+
+            <!-- Costos -->
+            <div class="mb-3">
+              <label for="editCostos" class="form-label">Costos (uno por línea)</label>
+              <textarea class="form-control" id="editCostos" rows="3"></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap JS -->
   <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
@@ -70,16 +140,30 @@
 
   <script>
     let becasData = [];
+
+    // Referencias del form principal (CREAR)
     const becaIdInput = document.getElementById('becaId');
     const tituloInput = document.getElementById('titulo');
     const fechaLimiteInput = document.getElementById('fechaLimite');
     const descripcionInput = document.getElementById('descripcion');
-    const imagenInput = document.getElementById('imagen');
-
+    const fileInput = document.getElementById('archivoImagen');
     const saveBtn = document.getElementById('saveBtn');
     const cancelBtn = document.getElementById('cancelBtn');
+
+    // Referencias de la tabla
     const becasTablaBody = document.querySelector('#becasTabla tbody');
 
+    // Referencias del modal de Edición
+    let editModal; 
+    const editBecaId = document.getElementById('editBecaId');
+    const editTitulo = document.getElementById('editTitulo');
+    const editFechaLimite = document.getElementById('editFechaLimite');
+    const editDescripcion = document.getElementById('editDescripcion');
+    const editArchivoImagen = document.getElementById('editArchivoImagen');
+    const editRequisitos = document.getElementById('editRequisitos');
+    const editCostos = document.getElementById('editCostos');
+
+    // Cargar la lista de becas
     function loadBecas() {
       fetch('/api/becas')
         .then(res => res.json())
@@ -90,6 +174,7 @@
         .catch(err => console.error(err));
     }
 
+    // Renderizar la tabla
     function renderTabla() {
       becasTablaBody.innerHTML = '';
       becasData.forEach(beca => {
@@ -101,41 +186,49 @@
           <td>${beca.imagen}</td>
           <td>${beca.link || ''}</td>
           <td>
-            <button class="btn btn-warning btn-sm" onclick="editBeca(${beca.id})">Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteBeca(${beca.id})">Eliminar</button>
+            <button class="btn btn-warning btn-sm" onclick="editBeca(${beca.id})">
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="deleteBeca(${beca.id})">
+              Eliminar
+            </button>
           </td>
         `;
         becasTablaBody.appendChild(tr);
       });
     }
 
+    // Crear/Actualizar (form principal)
     document.getElementById('becaForm').addEventListener('submit', e => {
       e.preventDefault();
 
-      const payload = {
-        titulo: tituloInput.value,
-        fechaLimite: fechaLimiteInput.value,
-        descripcion: descripcionInput.value,
-        imagen: imagenInput.value
-      };
+      const formData = new FormData();
+      const idValue = becaIdInput.value;
+      const tituloValue = tituloInput.value;
+      const fechaValue = fechaLimiteInput.value;
+      const descValue = descripcionInput.value;
 
-      const id = becaIdInput.value;
-      if (!id) {
+      formData.append('titulo', tituloValue);
+      formData.append('fechaLimite', fechaValue);
+      formData.append('descripcion', descValue);
+
+      if (fileInput.files.length > 0) {
+        formData.append('imagen', fileInput.files[0]);
+      }
+
+      if (!idValue) {
         // CREATE
         fetch('/api/becas', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: formData
         })
         .then(res => res.json())
         .then(resp => {
           console.log(resp);
-          // Si se creó con detailFile, redirigir a edit_detalle.html
           if (resp.detailFile) {
-            // Por ejemplo: /admin/edit_detalle.html?file=beca_programa-amity.html
+            // Redirige a edit_detalle.html?file=...
             window.location.href = `edit_detalle.html?file=${resp.detailFile}`;
           } else {
-            // Si no hay detailFile, solo recargamos
             loadBecas();
             resetForm();
           }
@@ -143,10 +236,9 @@
         .catch(err => console.error(err));
       } else {
         // UPDATE
-        fetch('/api/becas/' + id, {
+        fetch('/api/becas/' + idValue, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: formData
         })
         .then(res => res.json())
         .then(resp => {
@@ -158,34 +250,94 @@
       }
     });
 
+    // Cancelar
     cancelBtn.addEventListener('click', e => {
       resetForm();
     });
 
+    // Limpiar form principal
     function resetForm() {
       becaIdInput.value = '';
       tituloInput.value = '';
       fechaLimiteInput.value = '';
       descripcionInput.value = '';
-      imagenInput.value = '';
+      fileInput.value = '';
       saveBtn.textContent = 'Crear Beca';
       cancelBtn.style.display = 'none';
     }
 
+    // Función para abrir el modal de edición
     window.editBeca = function(id) {
       const beca = becasData.find(b => b.id === id);
       if (beca) {
-        becaIdInput.value = beca.id;
-        tituloInput.value = beca.titulo;
-        fechaLimiteInput.value = beca.fechaLimite || '';
-        descripcionInput.value = beca.descripcion;
-        imagenInput.value = beca.imagen;
+        // Cargar en el modal
+        editBecaId.value = beca.id;
+        editTitulo.value = beca.titulo || '';
+        editFechaLimite.value = beca.fechaLimite || '';
+        editDescripcion.value = beca.descripcion || '';
 
-        saveBtn.textContent = 'Actualizar Beca';
-        cancelBtn.style.display = 'inline-block';
+        // Requisitos y costos (asumiendo array; si es string, ajusta)
+        let reqStr = '';
+        if (beca.requisitos && Array.isArray(beca.requisitos)) {
+          reqStr = beca.requisitos.join('\n');
+        }
+        editRequisitos.value = reqStr;
+
+        let costStr = '';
+        if (beca.costos && Array.isArray(beca.costos)) {
+          costStr = beca.costos.join('\n');
+        }
+        editCostos.value = costStr;
+
+        // Resetear imagen nueva
+        editArchivoImagen.value = '';
+
+        // Iniciar y abrir modal
+        const modalEl = document.getElementById('editModal');
+        editModal = new bootstrap.Modal(modalEl);
+        editModal.show();
       }
     };
 
+    // Guardar cambios desde el modal
+    document.getElementById('editForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData();
+
+      const id = editBecaId.value;
+      formData.append('titulo', editTitulo.value);
+      formData.append('fechaLimite', editFechaLimite.value);
+      formData.append('descripcion', editDescripcion.value);
+
+      // Convertir Requisitos y Costos a array
+      const reqLines = editRequisitos.value.split('\n').map(l => l.trim()).filter(Boolean);
+      const costLines = editCostos.value.split('\n').map(l => l.trim()).filter(Boolean);
+
+      // Enviarlos como JSON string
+      formData.append('requisitos', JSON.stringify(reqLines));
+      formData.append('costos', JSON.stringify(costLines));
+
+      if (editArchivoImagen.files.length > 0) {
+        formData.append('imagen', editArchivoImagen.files[0]);
+      }
+
+      fetch(`/api/becas/${id}`, {
+        method: 'PUT',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(resp => {
+        console.log(resp);
+        // Cerrar modal
+        const modalObj = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+        modalObj.hide();
+        // Recargar la tabla
+        loadBecas();
+      })
+      .catch(err => console.error(err));
+    });
+
+    // Eliminar Beca
     window.deleteBeca = function(id) {
       if (confirm('¿Estás seguro de eliminar esta beca?')) {
         fetch('/api/becas/' + id, { method: 'DELETE' })
@@ -198,6 +350,7 @@
       }
     };
 
+    // Al iniciar
     loadBecas();
   </script>
 </body>

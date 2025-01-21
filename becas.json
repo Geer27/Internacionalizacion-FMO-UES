@@ -29,10 +29,37 @@
   },
   {
     "id": 5,
-    "titulo": "Beca cde",
-    "fechaLimite": "48",
-    "descripcion": "Se inscribve",
-    "imagen": "images/beca1.jpeg",
-    "link": "beca_beca-cde.html"
+    "titulo": "Beca police",
+    "fechaLimite": "enero",
+    "descripcion": "Salmo responsorial",
+    "imagen": "images/pexels-shkrabaanthony-5306446-1737418159866.jpg",
+    "link": "beca_beca-police.html",
+    "requisitos": [
+      "El instituto de cambridge",
+      "Solicita",
+      "Personal eficax",
+      "Y ademas amedrentador",
+      "Computarizado"
+    ],
+    "costos": [
+      "sas",
+      "sasa",
+      "El policia",
+      "Estetoscopio"
+    ]
+  },
+  {
+    "id": 6,
+    "titulo": "Beca el polonorte",
+    "fechaLimite": "Convocatoria abre ne marzo",
+    "descripcion": "Beca en el extranjero",
+    "imagen": "images/4k-moon-astronomy-3d-art-sci-fi-wallpapers4screen.com-1536x864-1737419883900.jpg",
+    "link": "beca_beca-el-polonorte.html",
+    "requisitos": [
+      "Hola k ase"
+    ],
+    "costos": [
+      "Computarizado o k ase"
+    ]
   }
 ]
