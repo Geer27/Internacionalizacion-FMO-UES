@@ -5,45 +5,87 @@
   <title>Editar Detalle de la Beca</title>
   <link rel="icon" href="../images/ues-logo.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <!-- Bootstrap CSS -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   >
+
+  <style>
+    body {
+      background-color: #f8f9fa; /* Gris clarito */
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      margin-top: 3rem;
+      max-width: 800px;
+    }
+    h1 {
+      color: #343a40; /* Gris oscuro */
+      font-weight: 600;
+    }
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    /* Botón color vino */
+    .btn-vino {
+      background-color: #7D1B3A; /* Color base */
+      border-color: #7D1B3A;
+      color: #fff;
+    }
+    .btn-vino:hover {
+      background-color: #6B1632; /* Hover un poco más oscuro */
+      border-color: #6B1632;
+    }
+    /* Ajuste de bordes */
+    .btn-vino,
+    .form-control {
+      border-radius: 0.25rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="container my-5">
-    <h1>Editar Detalle de la Beca</h1>
+  <div class="container">
+    <h1 class="mb-4">Editar Detalle de la Beca</h1>
 
     <!-- Muestra qué archivo se está editando -->
-    <p>Archivo a editar: <span id="fileSpan"></span></p>
+    <p><strong>Archivo a editar:</strong> <span id="fileSpan"></span></p>
 
     <form id="detalleForm">
       <div class="mb-3">
         <label for="requisitos" class="form-label">Requisitos (uno por línea)</label>
         <textarea class="form-control" id="requisitos" rows="3"></textarea>
       </div>
+
       <div class="mb-3">
         <label for="costos" class="form-label">Costos (uno por línea)</label>
         <textarea class="form-control" id="costos" rows="3"></textarea>
       </div>
+
       <div class="mb-3">
-        <label for="extraInfo" class="form-label">Información Extra/Mantente Informado</label>
+        <label for="extraInfo" class="form-label">Información Extra / Mantente Informado</label>
         <textarea class="form-control" id="extraInfo" rows="3"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Guardar Detalle</button>
+
+      <button type="submit" class="btn btn-vino">Guardar Detalle</button>
     </form>
   </div>
 
   <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
   </script>
+
   <script>
     // Tomar ?file= en la URL
     const params = new URLSearchParams(window.location.search);
-    const file = params.get('file'); // ej: "beca_programa-amity.html"
+    const file = params.get('file'); // p. ej. "beca_programa-amity.html"
 
-    document.getElementById('fileSpan').textContent = file;
+    document.getElementById('fileSpan').textContent = file || 'Archivo no especificado';
 
     const detalleForm = document.getElementById('detalleForm');
     detalleForm.addEventListener('submit', e => {

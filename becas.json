@@ -29,37 +29,32 @@
   },
   {
     "id": 5,
-    "titulo": "Beca police",
-    "fechaLimite": "enero",
-    "descripcion": "Salmo responsorial",
-    "imagen": "images/pexels-shkrabaanthony-5306446-1737418159866.jpg",
-    "link": "beca_beca-police.html",
+    "titulo": "Elefee",
+    "fechaLimite": "78",
+    "descripcion": "Cuatrenfa",
+    "imagen": "images/pexels-george-dolgikh-551816-1326947-1737575557021.jpg",
+    "link": "beca_elefe.html",
     "requisitos": [
-      "El instituto de cambridge",
-      "Solicita",
-      "Personal eficax",
-      "Y ademas amedrentador",
-      "Computarizado"
+      "Hoal"
     ],
     "costos": [
-      "sas",
-      "sasa",
-      "El policia",
-      "Estetoscopio"
-    ]
+      "Elsqu"
+    ],
+    "extraInfo": "queos"
   },
   {
     "id": 6,
-    "titulo": "Beca el polonorte",
-    "fechaLimite": "Convocatoria abre ne marzo",
-    "descripcion": "Beca en el extranjero",
-    "imagen": "images/4k-moon-astronomy-3d-art-sci-fi-wallpapers4screen.com-1536x864-1737419883900.jpg",
-    "link": "beca_beca-el-polonorte.html",
+    "titulo": "Beca sintedca",
+    "fechaLimite": "47",
+    "descripcion": "877\r\n44",
+    "imagen": "images/biker-nightscape-aurora-borealis-rider-wallpapers4screen.com-1536x864 (1)-1737575651721.jpg",
+    "link": "beca_beca-sintedca.html",
     "requisitos": [
-      "Hola k ase"
+      "Holas"
     ],
     "costos": [
-      "Computarizado o k ase"
-    ]
+      "Ele"
+    ],
+    "extraInfo": "Sas"
   }
 ]

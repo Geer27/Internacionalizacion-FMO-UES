@@ -5,123 +5,253 @@
   <title>Administrar Becas | Programa de Internacionalización UES</title>
   <link rel="icon" href="../images/ues-logo.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <!-- Bootstrap CSS -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   >
+
+  <!-- Tu archivo CSS principal -->
   <link rel="stylesheet" href="../css/styles.css">
+
   <style>
+    /* Estilos de la tabla */
     .table thead th {
-      background-color: #f5f5f5;
+      background-color: #f8f9fa; /* Un gris clarito */
     }
-    .btn-danger, .btn-warning {
-      margin-right: 5px;
+    /* Ajuste de botones en la tabla */
+    .table td .btn {
+      margin-right: 0.5rem; /* Espaciado horizontal entre botones */
+      margin-bottom: 0.5rem; /* Si en móviles se parten en líneas distintas */
+    }
+
+    /* Un contenedor con fondo claro para el formulario */
+    .form-container {
+      background-color: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+    /* Estilos del título principal */
+    h1 {
+      color: #343a40; /* Gris oscuro */
+      font-weight: 600;
+    }
+
+    /* Ajustes para los labels y inputs */
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+    }
+    .form-control {
+      border-radius: 0.25rem;
+    }
+    /* Botones */
+    #saveBtn,
+    #cancelBtn {
+      border-radius: 0.2rem;
+    }
+
+    /* Estilos del modal */
+    .modal-header {
+      background-color: #343a40;
+      color: #fff;
+    }
+    .modal-title {
+      font-weight: 600;
+    }
+    .btn-close {
+      background: none;
     }
   </style>
 </head>
 <body>
   <div class="container my-5">
-    <h1 class="mb-4">Administrar Becas</h1>
+
+    <h1 class="mb-4 text-center">Administrar Becas</h1>
 
     <!-- FORMULARIO principal para CREAR una beca -->
-    <form id="becaForm" class="mb-4" enctype="multipart/form-data">
-      <input type="hidden" id="becaId" />
+    <div class="form-container mb-5">
+      <form id="becaForm" enctype="multipart/form-data">
+        <input type="hidden" id="becaId" />
 
-      <div class="mb-3">
-        <label for="titulo" class="form-label">Título de la Beca</label>
-        <input type="text" class="form-control" id="titulo" required />
-      </div>
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Título de la Beca</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="titulo" 
+            placeholder="Ej. Beca UGRAD" 
+            required 
+          />
+        </div>
 
-      <div class="mb-3">
-        <label for="fechaLimite" class="form-label">Fecha Límite</label>
-        <input type="text" class="form-control" id="fechaLimite" required />
-      </div>
+        <div class="mb-3">
+          <label for="fechaLimite" class="form-label">Fecha Límite</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="fechaLimite" 
+            placeholder="Ej. 10 de diciembre de 2025"
+            required 
+          />
+        </div>
 
-      <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción Principal</label>
-        <textarea class="form-control" id="descripcion" rows="3" required></textarea>
-      </div>
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción Principal</label>
+          <textarea 
+            class="form-control" 
+            id="descripcion" 
+            rows="3" 
+            placeholder="Breve descripción de la beca"
+            required
+          ></textarea>
+        </div>
 
-      <!-- Subir un archivo de imagen para la beca -->
-      <div class="mb-3">
-        <label for="archivoImagen" class="form-label">Subir Imagen</label>
-        <input type="file" class="form-control" id="archivoImagen" accept="image/*" />
-      </div>
+        <!-- Subir un archivo de imagen para la beca -->
+        <div class="mb-3">
+          <label for="archivoImagen" class="form-label">Subir Imagen</label>
+          <input 
+            type="file" 
+            class="form-control" 
+            id="archivoImagen" 
+            accept="image/*" 
+          />
+        </div>
 
-      <button type="submit" class="btn btn-primary" id="saveBtn">Crear Beca</button>
-      <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none;">
-        Cancelar
-      </button>
-    </form>
+        <button type="submit" class="btn btn-primary me-2" id="saveBtn">
+          Crear Beca
+        </button>
+        <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none;">
+          Cancelar
+        </button>
+      </form>
+    </div>
 
     <!-- TABLA con la lista de Becas existentes -->
-    <table class="table table-striped" id="becasTabla">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Fecha Límite</th>
-          <th>Imagen</th>
-          <th>Link</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped align-middle" id="becasTabla">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Título</th>
+            <th scope="col">Fecha Límite</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Link</th>
+            <th scope="col" style="min-width: 150px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
   </div>
 
   <!-- MODAL para EDITAR Beca (ventana emergente) -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <!-- Form con multipart/form-data para subir nueva imagen -->
+
         <form id="editForm" enctype="multipart/form-data">
           <div class="modal-header">
             <h5 class="modal-title" id="editModalLabel">Editar Beca</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <button 
+              type="button" 
+              class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Cerrar"
+            ></button>
           </div>
-          <div class="modal-body">
 
-            <input type="hidden" id="editBecaId">
+          <div class="modal-body">
+            <input type="hidden" id="editBecaId" />
 
             <!-- Campos principales -->
             <div class="mb-3">
               <label for="editTitulo" class="form-label">Título de la Beca</label>
-              <input type="text" class="form-control" id="editTitulo" required />
+              <input 
+                type="text" 
+                class="form-control"
+                id="editTitulo" 
+                required 
+              />
             </div>
 
             <div class="mb-3">
               <label for="editFechaLimite" class="form-label">Fecha Límite</label>
-              <input type="text" class="form-control" id="editFechaLimite" required />
+              <input 
+                type="text" 
+                class="form-control" 
+                id="editFechaLimite" 
+                required 
+              />
             </div>
 
             <div class="mb-3">
-              <label for="editDescripcion" class="form-label">Descripción Principal</label>
-              <textarea class="form-control" id="editDescripcion" rows="3" required></textarea>
+              <label for="editDescripcion" class="form-label">
+                Descripción Principal
+              </label>
+              <textarea 
+                class="form-control" 
+                id="editDescripcion" 
+                rows="3" 
+                required
+              ></textarea>
             </div>
 
             <!-- Subir nueva imagen (opcional) -->
             <div class="mb-3">
-              <label for="editArchivoImagen" class="form-label">Cambiar Imagen</label>
-              <input type="file" class="form-control" id="editArchivoImagen" accept="image/*" />
+              <label for="editArchivoImagen" class="form-label">
+                Cambiar Imagen
+              </label>
+              <input 
+                type="file" 
+                class="form-control" 
+                id="editArchivoImagen" 
+                accept="image/*" 
+              />
             </div>
 
             <!-- Requisitos -->
             <div class="mb-3">
               <label for="editRequisitos" class="form-label">Requisitos (uno por línea)</label>
-              <textarea class="form-control" id="editRequisitos" rows="3"></textarea>
+              <textarea 
+                class="form-control" 
+                id="editRequisitos"
+                rows="3"
+              ></textarea>
             </div>
 
             <!-- Costos -->
             <div class="mb-3">
               <label for="editCostos" class="form-label">Costos (uno por línea)</label>
-              <textarea class="form-control" id="editCostos" rows="3"></textarea>
+              <textarea 
+                class="form-control" 
+                id="editCostos"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <!-- Información Extra -->
+            <div class="mb-3">
+              <label for="editExtraInfo" class="form-label">
+                Información Extra / Mantente Informado
+              </label>
+              <textarea 
+                class="form-control" 
+                id="editExtraInfo"
+                rows="3"
+              ></textarea>
             </div>
 
           </div>
+
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              data-bs-dismiss="modal"
+            >
               Cerrar
             </button>
             <button type="submit" class="btn btn-primary">
@@ -129,14 +259,15 @@
             </button>
           </div>
         </form>
+
       </div>
     </div>
   </div>
 
   <!-- Bootstrap JS -->
   <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-  </script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
 
   <script>
     let becasData = [];
@@ -162,6 +293,7 @@
     const editArchivoImagen = document.getElementById('editArchivoImagen');
     const editRequisitos = document.getElementById('editRequisitos');
     const editCostos = document.getElementById('editCostos');
+    const editExtraInfo = document.getElementById('editExtraInfo');
 
     // Cargar la lista de becas
     function loadBecas() {
@@ -186,10 +318,16 @@
           <td>${beca.imagen}</td>
           <td>${beca.link || ''}</td>
           <td>
-            <button class="btn btn-warning btn-sm" onclick="editBeca(${beca.id})">
+            <button 
+              class="btn btn-warning btn-sm"
+              onclick="editBeca(${beca.id})"
+            >
               Editar
             </button>
-            <button class="btn btn-danger btn-sm" onclick="deleteBeca(${beca.id})">
+            <button 
+              class="btn btn-danger btn-sm"
+              onclick="deleteBeca(${beca.id})"
+            >
               Eliminar
             </button>
           </td>
@@ -215,6 +353,10 @@
       if (fileInput.files.length > 0) {
         formData.append('imagen', fileInput.files[0]);
       }
+
+      // Si quisieras también “Información Extra” al CREAR,
+      // podrías añadir un campo en el form principal (no solicitado).
+      // e.g. formData.append('extraInfo', extraValue);
 
       if (!idValue) {
         // CREATE
@@ -276,7 +418,7 @@
         editFechaLimite.value = beca.fechaLimite || '';
         editDescripcion.value = beca.descripcion || '';
 
-        // Requisitos y costos (asumiendo array; si es string, ajusta)
+        // Requisitos y costos (asumiendo array)
         let reqStr = '';
         if (beca.requisitos && Array.isArray(beca.requisitos)) {
           reqStr = beca.requisitos.join('\n');
@@ -288,6 +430,9 @@
           costStr = beca.costos.join('\n');
         }
         editCostos.value = costStr;
+
+        // Extra Info
+        editExtraInfo.value = beca.extraInfo || '';
 
         // Resetear imagen nueva
         editArchivoImagen.value = '';
@@ -309,14 +454,17 @@
       formData.append('fechaLimite', editFechaLimite.value);
       formData.append('descripcion', editDescripcion.value);
 
-      // Convertir Requisitos y Costos a array
+      // Requisitos y Costos
       const reqLines = editRequisitos.value.split('\n').map(l => l.trim()).filter(Boolean);
       const costLines = editCostos.value.split('\n').map(l => l.trim()).filter(Boolean);
 
-      // Enviarlos como JSON string
       formData.append('requisitos', JSON.stringify(reqLines));
       formData.append('costos', JSON.stringify(costLines));
 
+      // Extra Info
+      formData.append('extraInfo', editExtraInfo.value || '');
+
+      // Imagen (opcional)
       if (editArchivoImagen.files.length > 0) {
         formData.append('imagen', editArchivoImagen.files[0]);
       }
@@ -329,7 +477,8 @@
       .then(resp => {
         console.log(resp);
         // Cerrar modal
-        const modalObj = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+        const modalObj = bootstrap.Modal
+          .getInstance(document.getElementById('editModal'));
         modalObj.hide();
         // Recargar la tabla
         loadBecas();
