@@ -244,6 +244,44 @@
               ></textarea>
             </div>
 
+            <div class="mb-3">
+              <label for="editInstitucion" class="form-label">Institución</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="editInstitucion" 
+                required
+              />
+            </div>
+          
+            <div class="mb-3">
+              <label for="editModalidad" class="form-label">Modalidad</label>
+              <select class="form-select" id="editModalidad">
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual">Virtual</option>
+                <option value="Híbrida">Híbrida</option>
+              </select>
+            </div>
+          
+            <div class="mb-3">
+              <label for="editTipoBeca" class="form-label">Tipo de Beca</label>
+              <select class="form-select" id="editTipoBeca">
+                <option value="Parcial">Parcial</option>
+                <option value="Total">Total</option>
+              </select>
+            </div>
+          
+            <div class="mb-3">
+              <label for="editEnlace" class="form-label">Enlace de Aplicación</label>
+              <input 
+                type="url" 
+                class="form-control" 
+                id="editEnlace" 
+                placeholder="https://ejemplo.com/aplicar"
+              />
+            </div>
+
+
           </div>
 
           <div class="modal-footer">
@@ -441,50 +479,70 @@
         const modalEl = document.getElementById('editModal');
         editModal = new bootstrap.Modal(modalEl);
         editModal.show();
+
+         // Nuevos campos
+    document.getElementById('editInstitucion').value = beca.institucion || '';
+    document.getElementById('editModalidad').value = beca.modalidad || 'Presencial';
+    document.getElementById('editTipoBeca').value = beca.tipoBeca || 'Parcial';
+    document.getElementById('editEnlace').value = beca.enlaceAplicacion || '';
+
       }
     };
 
     // Guardar cambios desde el modal
     document.getElementById('editForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const formData = new FormData();
+        e.preventDefault();
+        const formData = new FormData();
 
-      const id = editBecaId.value;
-      formData.append('titulo', editTitulo.value);
-      formData.append('fechaLimite', editFechaLimite.value);
-      formData.append('descripcion', editDescripcion.value);
+        const rawUrl = document.getElementById('editEnlace').value.trim();
+        let finalUrl = rawUrl;
+        if (!finalUrl.match(/^https?:\/\//i)) {
+          finalUrl = 'https://' + finalUrl;
+        }
 
-      // Requisitos y Costos
-      const reqLines = editRequisitos.value.split('\n').map(l => l.trim()).filter(Boolean);
-      const costLines = editCostos.value.split('\n').map(l => l.trim()).filter(Boolean);
+        const id = editBecaId.value;
+        
+        // Campos principales
+        formData.append('titulo', editTitulo.value);
+        formData.append('fechaLimite', editFechaLimite.value);
+        formData.append('descripcion', editDescripcion.value);
+        
+        // Nuevos campos agregados
+        formData.append('institucion', document.getElementById('editInstitucion').value);
+        formData.append('modalidad', document.getElementById('editModalidad').value);
+        formData.append('tipoBeca', document.getElementById('editTipoBeca').value);
+        formData.append('enlaceAplicacion', finalUrl);
 
-      formData.append('requisitos', JSON.stringify(reqLines));
-      formData.append('costos', JSON.stringify(costLines));
+        // Listas
+        const reqLines = editRequisitos.value.split('\n').map(l => l.trim()).filter(Boolean);
+        const costLines = editCostos.value.split('\n').map(l => l.trim()).filter(Boolean);
+        formData.append('requisitos', JSON.stringify(reqLines));
+        formData.append('costos', JSON.stringify(costLines));
 
-      // Extra Info
-      formData.append('extraInfo', editExtraInfo.value || '');
+        // Información extra
+        formData.append('extraInfo', editExtraInfo.value || '');
 
-      // Imagen (opcional)
-      if (editArchivoImagen.files.length > 0) {
-        formData.append('imagen', editArchivoImagen.files[0]);
-      }
+        // Imagen
+        if (editArchivoImagen.files[0]) {
+          formData.append('imagen', editArchivoImagen.files[0]);
+         }
 
-      fetch(`/api/becas/${id}`, {
-        method: 'PUT',
-        body: formData
-      })
-      .then(res => res.json())
-      .then(resp => {
-        console.log(resp);
-        // Cerrar modal
-        const modalObj = bootstrap.Modal
-          .getInstance(document.getElementById('editModal'));
-        modalObj.hide();
-        // Recargar la tabla
-        loadBecas();
-      })
-      .catch(err => console.error(err));
-    });
+        // Enviar después de agregar TODOS los campos
+        fetch(`/api/becas/${id}`, {
+          method: 'PUT',
+          body: formData
+        })
+        .then(res => res.json())
+        .then(resp => {
+          const modalObj = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+          modalObj.hide();
+          loadBecas();
+        })
+        .then(() => {
+    window.location.reload(true); // Recarga forzada
+  })
+        .catch(console.error);
+});
 
     // Eliminar Beca
     window.deleteBeca = function(id) {

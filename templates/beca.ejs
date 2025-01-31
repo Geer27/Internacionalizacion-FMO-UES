@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= beca.titulo %> | Becas UES</title>
+  <link rel="icon" href="../images/Ues logo.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .navbar {
+      background: var(--primary-color) !important;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .beca-hero {
+      height: 400px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    }
+
+    .section-title {
+      color: var(--primary-color);
+      border-left: 4px solid var(--secondary-color);
+      padding-left: 1rem;
+      margin: 2rem 0;
+      font-weight: 600;
+    }
+
+    .feature-list li {
+      padding: 1rem;
+      margin: 0.5rem 0;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-ues {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-ues:hover {
+      background: var(--accent-color);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
+        <span>Internacionalización UES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
+          <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
+          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="row g-5">
+      <!-- Columna Principal -->
+      <div class="col-lg-8">
+        <div class="text-center mb-5">
+          <h1 class="display-4 fw-bold text-primary" data-editable="titulo"><%= beca.titulo %></h1>
+          <div class="mt-3">
+            <span class="info-badge" data-editable="fechaLimite">
+              <i class="fas fa-clock me-2"></i><%= beca.fechaLimite || "Fecha por definir" %>
+            </span>
+          </div>
+        </div>
+
+        <img data-editable="imagen" src="../<%= beca.imagen %>" class="beca-hero w-100 mb-5" alt="<%= beca.titulo %>">
+
+        <div class="info-card">
+          <div class="mb-4">
+            <h3 class="section-title">Descripción del programa</h3>
+            <p class="lead" data-editable="descripcion"><%= beca.descripcion %></p>
+          </div>
+
+          <div class="mb-5">
+            <h3 class="section-title">Requisitos de aplicación</h3>
+            <ul class="feature-list list-unstyled" data-section="requisitos">
+              <% beca.requisitos.forEach(req => { %>
+                <li data-editable="requisito-item">
+                  <i class="fas fa-check-circle me-3 text-success"></i><%= req %>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+
+          <div class="mb-5">
+            <h3 class="section-title">Inversión requerida</h3>
+            <ul class="feature-list list-unstyled" data-section="costos">
+              <% beca.costos.forEach(costo => { %>
+                <li data-editable="costo-item">
+                  <i class="fas fa-dollar-sign me-3 text-primary"></i><%= costo %>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+
+          <div class="timeline">
+            <h3 class="section-title">Más Información</h3>
+            <div data-section="extraInfo"><%= beca.extraInfo %></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="info-card sticky-top" style="top: 100px;">
+          <h4 class="section-title mb-4">Detalles clave</h4>
+          
+          <div class="mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-university fa-lg me-3 text-primary"></i>
+              <div>
+                <h5 class="mb-0">Institución</h5>
+                <p class="mb-0" data-editable="institucion"><%= beca.institucion %></p>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-globe-americas fa-lg me-3 text-primary"></i>
+              <div>
+                <h5 class="mb-0">Modalidad</h5>
+                <p class="mb-0" data-editable="modalidad"><%= beca.modalidad %></p>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-award fa-lg me-3 text-primary"></i>
+              <div>
+                <h5 class="mb-0">Tipo de beca</h5>
+                <p class="mb-0" data-editable="tipoBeca"><%= beca.tipoBeca %></p>
+              </div>
+            </div>
+          </div>
+
+          <a href="<%= beca.enlaceAplicacion %>" 
+             class="btn btn-ues w-100"
+             data-editable="enlaceAplicacion"
+             target="_blank">
+            <i class="fas fa-file-alt me-2"></i>Sitio WEB
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+      <img src="../images/logouess.png" alt="Logo UES" width="60" class="mb-3">
+      <p class="mb-0">© 2024 Universidad de El Salvador</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
