@@ -5,187 +5,481 @@
   <title><%= beca.titulo %> | Becas UES</title>
   <link rel="icon" href="../images/Ues logo.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
+    /* Variables actualizadas para mejor contraste y consistencia */
     :root {
-      --primary-color: #7D1B3A;
-      --secondary-color: #D9A441;
-      --accent-color: #2C5F2D;
+      --primary-color: #7D1B3A;    /* Mantenemos identidad UES - VINO */
+      --secondary-color: #D9A441;  /* Oro envejecido */
+      --accent-color: #2C5F2D;     /* Verde histórico */
+      --dark-bg: #1a1a1a;
+      --text-dark: #2d2d2d;
+      --text-light: #f8f9fa;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --box-shadow-light: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+      --box-shadow-hover: 12px 12px 24px #c5c5c5, -12px -12px 24px #ffffff;
+      --bg-color: #f8f9fa; /* Color de fondo general unificado a #f8f9fa */
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif; /* Poppins para texto principal */
+      background: var(--bg-color); /* Fondo general unificado */
+      color: var(--text-dark);
+      line-height: 1.7; /* Ajuste line-height para mejor legibilidad */
+      font-size: 1rem; /* Ajuste tamaño de fuente base a 1rem */
+      padding-top: 70px; /* Ajuste para navbar fijo */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
+    /* Navbar mejorado y consistente con otras páginas */
     .navbar {
-      background: var(--primary-color) !important;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      background: var(--dark-bg) !important;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
     }
 
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      margin-right: 10px;
+    }
+
+    .navbar-brand span {
+      font-size: 1.1rem;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-light) !important;
+      padding: 0.7rem 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--secondary-color) !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+    }
+
+    /* Hero section modernizada */
     .beca-hero {
-      height: 400px;
+      height: 450px; /* Reducido un poco la altura del hero */
       object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: 1.2rem; /* Border-radius consistente con tarjetas y modales */
+      box-shadow: var(--box-shadow-light); /* Sombreado neumórfico consistente */
+      margin: 2rem 0; /* Reducido margen vertical */
+      border: 1px solid #eee; /* Añadido borde sutil para definición */
+      transition: var(--transition);
     }
 
-    .info-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      margin: 2rem 0;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    .beca-hero:hover {
+      box-shadow: var(--box-shadow-hover); /* Hover shadow consistente */
+      transform: translateY(-5px); /* Elevación sutil al hover */
     }
 
-    .section-title {
+
+    /* Título principal modernizado */
+    .historical-title {
+      font-family: 'Playfair Display', serif; /* Mantenemos Playfair Display para títulos */
+      font-weight: 700;
       color: var(--primary-color);
-      border-left: 4px solid var(--secondary-color);
-      padding-left: 1rem;
-      margin: 2rem 0;
-      font-weight: 600;
+      text-align: center;
+      margin: 2rem 0 3rem 0; /* Ajuste márgenes verticales */
+      position: relative;
+      font-size: 2.2rem; /* Reducido un poco el tamaño del título */
     }
 
+    .historical-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; /* Ajuste posición de la línea */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px; /* Reducido ancho de la línea */
+      height: 3px;
+      background: var(--secondary-color);
+      border-radius: 1.5px;
+    }
+
+    /* Tarjetas de texto modernizadas (story-card y info-card unificadas en estilo) */
+    .info-card, .story-card { /* Unificado selector de estilos para ambas tarjetas */
+      background: #ffffff; /* Fondo blanco simple */
+      border: none; /* Eliminado borde original */
+      border-radius: 1.2rem; /* Border-radius consistente con diseño general */
+      padding: 2rem; /* Ajuste padding consistente */
+      margin: 1.5rem 0; /* Ajuste márgenes verticales */
+      box-shadow: var(--box-shadow-light); /* Sombreado neumórfico consistente */
+      transition: var(--transition);
+      border: 1px solid #eee; /* Añadido borde sutil para definición */
+    }
+
+    .info-card:hover, .story-card:hover { /* Hover para ambas tarjetas */
+      box-shadow: var(--box-shadow-hover); /* Hover shadow consistente */
+      transform: translateY(-5px); /* Elevación sutil al hover */
+    }
+
+
+    /* Timeline Divider Simplificado (opcional - se puede usar o eliminar según preferencia) */
+    .timeline-divider {
+      text-align: center;
+      margin: 2rem 0; /* Reducido margen vertical */
+      position: relative;
+    }
+
+    .timeline-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%; /* Ajustado inicio y fin de la línea para no ser de extremo a extremo */
+      right: 10%;
+      height: 1px;
+      background: #e0d6c7; /* Línea simple en color más claro */
+    }
+
+    .timeline-dot {
+      display: inline-block;
+      width: 30px; /* Reducido tamaño del punto */
+      height: 30px; /* Reducido tamaño del punto */
+      border: 2px solid var(--secondary-color);
+      border-radius: 50%;
+      background: var(--bg-color);
+      position: relative;
+      z-index: 1;
+    }
+
+
+    /* Títulos de sección dentro de tarjetas (ej: Descripción del programa) */
+    .section-title {
+      font-family: 'Playfair Display', serif; /* Playfair Display para títulos de sección */
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1.2rem; /* Ajuste margen inferior */
+      font-size: 1.5rem; /* Ajuste tamaño fuente */
+    }
+
+    /* Listas de características (Requisitos, Costos) */
     .feature-list li {
-      padding: 1rem;
-      margin: 0.5rem 0;
-      background: #fff;
-      border-radius: 8px;
-      border: 1px solid #eee;
-      transition: transform 0.3s ease;
+      margin-bottom: 0.7rem; /* Espaciado entre items de lista */
+      display: flex; /* Para alinear icono y texto */
+      align-items: flex-start; /* Alineación superior para iconos y texto en listas */
     }
 
-    .btn-ues {
-      background: var(--primary-color);
-      color: white;
-      padding: 0.8rem 2rem;
-      border-radius: 30px;
-      transition: all 0.3s ease;
+    .feature-list i {
+      margin-right: 0.7rem; /* Espacio entre icono y texto en listas */
+      font-size: 1rem; /* Tamaño de iconos en listas */
     }
 
-    .btn-ues:hover {
-      background: var(--accent-color);
-      transform: translateY(-2px);
+    .feature-list li i.me-3 { /* Selector específico para iconos "me-3" dentro de feature-list */
+      margin-top: 0.2rem; /* Ajuste fino para alinear verticalmente el icono con el texto */
+    }
+
+    /* Botones consistentes con color vino e iconos */
+    .btn-primary {
+      background-color: var(--primary-color) !important; /* Color vino consistente */
+      border-color: var(--primary-color) !important; /* Borde color vino consistente */
+      color: var(--text-light) !important; /* Texto blanco para contraste */
+      padding: 0.75rem 1.5rem; /* Ajuste padding para botones */
+      border-radius: 0.75rem; /* Bordes redondeados consistentes */
+      font-weight: 600; /* Texto en negrita */
+      transition: var(--transition);
+      box-shadow: none; /* Eliminar sombra predeterminada */
+      display: inline-flex; /* Para alinear icono y texto */
+      align-items: center; /* Para centrar verticalmente icono y texto */
+      justify-content: center; /* Para centrar horizontalmente contenido si es necesario */
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-color) !important; /* Cambio de color en hover */
+      border-color: var(--accent-color) !important; /* Cambio de color de borde en hover */
+      box-shadow: var(--box-shadow-hover); /* Sombra al hacer hover consistente */
+      transform: translateY(-3px); /* Elevación al hacer hover consistente */
+    }
+
+    .btn-primary i {
+      margin-right: 0.5rem; /* Espacio entre icono y texto en botón */
+      font-size: 1rem; /* Tamaño del icono */
+    }
+
+     /* Botón "Regresar a Becas" con color vino */
+    .btn-secondary {
+      background-color: var(--primary-color) !important; /* Color vino consistente */
+      border-color: var(--primary-color) !important; /* Borde color vino consistente */
+      color: var(--text-light) !important; /* Texto blanco para contraste */
+      padding: 0.75rem 1.5rem; /* Ajuste padding para botones */
+      border-radius: 0.75rem; /* Bordes redondeados consistentes */
+      font-weight: 600; /* Texto en negrita */
+      transition: var(--transition);
+      box-shadow: none; /* Eliminar sombra predeterminada */
+      display: inline-flex; /* Para alinear icono y texto */
+      align-items: center; /* Para centrar verticalmente icono y texto */
+      justify-content: center; /* Para centrar horizontalmente contenido si es necesario */
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--accent-color) !important; /* Cambio de color en hover */
+      border-color: var(--accent-color) !important; /* Cambio de color de borde en hover */
+      box-shadow: var(--box-shadow-hover); /* Sombra al hacer hover consistente */
+      transform: translateY(-3px); /* Elevación al hacer hover consistente */
+    }
+
+    .btn-secondary i {
+      margin-right: 0.5rem; /* Espacio entre icono y texto en botón */
+      font-size: 1rem; /* Tamaño del icono */
+    }
+
+
+    /* Footer consistente con otras páginas */
+    footer {
+      background: var(--dark-bg);
+      border-top: 3px solid var(--secondary-color);
+      margin-top: 5rem; /* Mantenemos margen superior del footer */
+      padding: 2.5rem 0; /* Ajuste padding footer consistente con otras páginas */
+      text-align: center; /* Texto centrado en footer */
+    }
+
+    footer img {
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4)); /* Sombreado logo footer consistente */
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+
+    /* Animaciones sutiles - Mantenemos fadeIn */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .beca-hero,
+    .historical-title,
+    .story-card,
+    .info-card { /* Añadimos info-card a la animación */
+      animation: fadeIn 0.7s ease-out forwards; /* Ajuste ligero de tiempo */
+    }
+
+
+    /* Responsive - Ajustes para móviles */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px; /* Ajuste padding body en móviles */
+        font-size: 0.95rem; /* Reducir tamaño de fuente en móviles */
+      }
+
+      .navbar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .navbar-brand span {
+        font-size: 1rem;
+      }
+
+      .navbar-nav .nav-link {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      .historical-title {
+        font-size: 1.8rem; /* Reducir tamaño de título en móviles */
+        margin-bottom: 2rem; /* Reducir margen inferior título móvil */
+      }
+
+      .historical-title::after {
+        bottom: -8px; /* Ajustar posición línea título en móviles */
+        width: 60px; /* Reducir ancho línea título móvil */
+      }
+
+
+      .beca-hero {
+        height: 280px; /* Reducir altura hero en móviles */
+        margin-bottom: 1.5rem; /* Reducir margen inferior hero móvil */
+      }
+
+      .info-card, .story-card {
+        padding: 1.5rem; /* Reducir padding tarjetas en móviles */
+        margin: 1rem 0; /* Reducir margen tarjetas en móviles */
+      }
+
+      .section-title {
+        font-size: 1.3rem; /* Reducir tamaño título sección en móviles */
+        margin-bottom: 1rem; /* Reducir margen inferior título sección móvil */
+      }
+
+      .feature-list li {
+        margin-bottom: 0.6rem; /* Reducir margen items lista en móviles */
+      }
+
+      .timeline-divider {
+        margin: 1.5rem 0; /* Reducir margen timeline divider móvil */
+      }
+
+      .timeline-dot {
+        width: 25px; /* Reducir tamaño punto timeline en móviles */
+        height: 25px; /* Reducir tamaño punto timeline en móviles */
+      }
+
+      .btn-primary, .btn-secondary { /* Aplicar estilos de botón móvil a ambos */
+        padding: 0.6rem 1rem; /* Reducir padding botones en móviles */
+        font-size: 0.9rem; /* Reducir tamaño texto botón en móviles */
+      }
+
+      .btn-primary i, .btn-secondary i { /* Aplicar estilos de icono botón móvil a ambos */
+        font-size: 0.9rem; /* Reducir tamaño iconos botón en móviles */
+        margin-right: 0.3rem; /* Reducir espacio icono-texto en botón móvil */
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="../index.html">
-        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
-        <span>Internacionalización UES</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
-          <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
-          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
-          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
-        </ul>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../images/logouess.png" alt="Logo UES" width="50">
+          <span>Internacionalización UES</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="becas.html">Becas</a></li>
+            <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
+            <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+            <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <main class="container py-5">
     <div class="row g-5">
-      <!-- Columna Principal -->
       <div class="col-lg-8">
-        <div class="text-center mb-5">
-          <h1 class="display-4 fw-bold text-primary" data-editable="titulo"><%= beca.titulo %></h1>
-          <div class="mt-3">
-            <span class="info-badge" data-editable="fechaLimite">
+        <div class="text-center mb-4"> <h1 class="historical-title" data-section="titulo">
+            <%= beca.titulo %>
+          </h1>
+          <div class="mt-2"> <span class="info-badge" data-section="fechaLimite">
               <i class="fas fa-clock me-2"></i><%= beca.fechaLimite || "Fecha por definir" %>
             </span>
           </div>
         </div>
 
-        <img data-editable="imagen" src="../<%= beca.imagen %>" class="beca-hero w-100 mb-5" alt="<%= beca.titulo %>">
+        <img
+          data-section="imagen"
+          src="../<%= beca.imagen %>"
+          class="beca-hero w-100 mb-4" alt="<%= beca.titulo %>"
+          loading="lazy"
+        >
 
-        <div class="info-card">
-          <div class="mb-4">
+        <div class="story-card"> <div class="mb-4">
             <h3 class="section-title">Descripción del programa</h3>
-            <p class="lead" data-editable="descripcion"><%= beca.descripcion %></p>
+            <p class="lead drop-cap" data-section="descripcion">
+              <%= beca.descripcion %>
+            </p>
           </div>
+        </div>
 
-          <div class="mb-5">
+        <div class="story-card">
+          <div class="mb-4">
             <h3 class="section-title">Requisitos de aplicación</h3>
             <ul class="feature-list list-unstyled" data-section="requisitos">
               <% beca.requisitos.forEach(req => { %>
-                <li data-editable="requisito-item">
+                <li data-section="requisitos-item">
                   <i class="fas fa-check-circle me-3 text-success"></i><%= req %>
                 </li>
               <% }); %>
             </ul>
           </div>
+        </div>
 
-          <div class="mb-5">
+        <div class="story-card">
+          <div class="mb-4">
             <h3 class="section-title">Inversión requerida</h3>
             <ul class="feature-list list-unstyled" data-section="costos">
               <% beca.costos.forEach(costo => { %>
-                <li data-editable="costo-item">
+                <li data-section="costos-item">
                   <i class="fas fa-dollar-sign me-3 text-primary"></i><%= costo %>
                 </li>
               <% }); %>
             </ul>
           </div>
+        </div>
 
+        <div class="story-card">
           <div class="timeline">
             <h3 class="section-title">Más Información</h3>
-            <div data-section="extraInfo"><%= beca.extraInfo %></div>
+            <div class="extra-info" data-section="extraInfo"><%= beca.extraInfo %></div>
+            <div class="timeline-divider">
+              <span class="timeline-dot"></span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Sidebar -->
       <div class="col-lg-4">
-        <div class="info-card sticky-top" style="top: 100px;">
-          <h4 class="section-title mb-4">Detalles clave</h4>
-          
-          <div class="mb-4">
-            <div class="d-flex align-items-center mb-3">
-              <i class="fas fa-university fa-lg me-3 text-primary"></i>
+        <div class="info-card" style="top: 90px;"> <h4 class="section-title mb-3">Detalles clave</h4> <div class="mb-3"> <div class="d-flex align-items-center mb-2"> <i class="fas fa-university fa-lg me-3 text-primary"></i>
               <div>
-                <h5 class="mb-0">Institución</h5>
-                <p class="mb-0" data-editable="institucion"><%= beca.institucion %></p>
+                <h5 class="mb-0 small fw-bold">Institución</h5> <p class="mb-0 small" data-section="institucion"> <%= beca.institucion %>
+                </p>
               </div>
             </div>
 
-            <div class="d-flex align-items-center mb-3">
-              <i class="fas fa-globe-americas fa-lg me-3 text-primary"></i>
+            <div class="d-flex align-items-center mb-2"> <i class="fas fa-globe-americas fa-lg me-3 text-primary"></i>
               <div>
-                <h5 class="mb-0">Modalidad</h5>
-                <p class="mb-0" data-editable="modalidad"><%= beca.modalidad %></p>
+                <h5 class="mb-0 small fw-bold">Modalidad</h5><p class="mb-0 small" data-section="modalidad"> <%= beca.modalidad %>
+                </p>
               </div>
             </div>
 
-            <div class="d-flex align-items-center mb-3">
-              <i class="fas fa-award fa-lg me-3 text-primary"></i>
+            <div class="d-flex align-items-center mb-2"> <i class="fas fa-award fa-lg me-3 text-primary"></i>
               <div>
-                <h5 class="mb-0">Tipo de beca</h5>
-                <p class="mb-0" data-editable="tipoBeca"><%= beca.tipoBeca %></p>
+                <h5 class="mb-0 small fw-bold">Tipo de beca</h5><p class="mb-0 small" data-section="tipoBeca"> <%= beca.tipoBeca %>
+                </p>
               </div>
             </div>
           </div>
 
-          <a href="<%= beca.enlaceAplicacion %>" 
-             class="btn btn-ues w-100"
-             data-editable="enlaceAplicacion"
-             target="_blank">
+          <a
+            href="<%= beca.enlaceAplicacion %>"
+            class="btn btn-primary w-100" data-section="enlaceAplicacion"
+            target="_blank"
+          >
             <i class="fas fa-file-alt me-2"></i>Sitio WEB
           </a>
         </div>
@@ -193,14 +487,21 @@
     </div>
   </main>
 
-  <footer class="bg-dark text-white py-4 mt-5">
+  <div class="container text-center my-4">
+    <a href="becas.html" class="btn btn-primary">
+      <i class="fas fa-arrow-left me-2"></i>Regresar a Becas
+    </a>
+  </div>
+
+  <footer>
     <div class="container text-center">
       <img src="../images/logouess.png" alt="Logo UES" width="60" class="mb-3">
       <p class="mb-0">© 2024 Universidad de El Salvador</p>
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
 </body>
 </html>

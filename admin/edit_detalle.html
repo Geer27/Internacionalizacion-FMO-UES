@@ -57,16 +57,66 @@
     <p><strong>Archivo a editar:</strong> <span id="fileSpan"></span></p>
 
     <form id="detalleForm">
+      <!-- Institución -->
+      <div class="mb-3">
+        <label for="institucion" class="form-label">Institución</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="institucion" 
+          placeholder="Ej. Universidad de Cambridge"
+        />
+      </div>
+
+      <!-- Modalidad -->
+      <div class="mb-3">
+        <label for="modalidad" class="form-label">Modalidad</label>
+        <select 
+          class="form-select" 
+          id="modalidad"
+        >
+          <option value="Presencial">Presencial</option>
+          <option value="Virtual">Virtual</option>
+          <option value="Híbrida">Híbrida</option>
+        </select>
+      </div>
+
+      <!-- Tipo de Beca -->
+      <div class="mb-3">
+        <label for="tipoBeca" class="form-label">Tipo de Beca</label>
+        <select 
+          class="form-select" 
+          id="tipoBeca"
+        >
+          <option value="Parcial">Parcial</option>
+          <option value="Total">Total</option>
+        </select>
+      </div>
+
+      <!-- Enlace de Aplicación -->
+      <div class="mb-3">
+        <label for="enlaceAplicacion" class="form-label">Enlace de Aplicación</label>
+        <input 
+          type="url"
+          class="form-control"
+          id="enlaceAplicacion"
+          placeholder="https://ejemplo.com/aplicar"
+        />
+      </div>
+
+      <!-- Requisitos -->
       <div class="mb-3">
         <label for="requisitos" class="form-label">Requisitos (uno por línea)</label>
         <textarea class="form-control" id="requisitos" rows="3"></textarea>
       </div>
 
+      <!-- Costos -->
       <div class="mb-3">
         <label for="costos" class="form-label">Costos (uno por línea)</label>
         <textarea class="form-control" id="costos" rows="3"></textarea>
       </div>
 
+      <!-- Información Extra -->
       <div class="mb-3">
         <label for="extraInfo" class="form-label">Información Extra / Mantente Informado</label>
         <textarea class="form-control" id="extraInfo" rows="3"></textarea>
@@ -79,28 +129,44 @@
   <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
   </script>
-
   <script>
-    // Tomar ?file= en la URL
+    // Tomar ?file= de la URL
     const params = new URLSearchParams(window.location.search);
     const file = params.get('file'); // p. ej. "beca_programa-amity.html"
 
+    // Mostrar el nombre del archivo
     document.getElementById('fileSpan').textContent = file || 'Archivo no especificado';
 
     const detalleForm = document.getElementById('detalleForm');
+
     detalleForm.addEventListener('submit', e => {
       e.preventDefault();
+
       // Obtenemos valores
+      const institucion = document.getElementById('institucion').value.trim();
+      const modalidad = document.getElementById('modalidad').value;
+      const tipoBeca = document.getElementById('tipoBeca').value;
+      const rawUrl = document.getElementById('enlaceAplicacion').value.trim();
       const requisitos = document.getElementById('requisitos').value;
       const costos = document.getElementById('costos').value;
       const extraInfo = document.getElementById('extraInfo').value;
+
+      // Asegurarnos de que el enlace comience con https:// o http://
+      let finalUrl = rawUrl;
+      if (finalUrl && !finalUrl.match(/^https?:\/\//i)) {
+        finalUrl = 'https://' + finalUrl;
+      }
 
       // Enviamos al backend para reescribir placeholders en el HTML
       fetch('/api/becas/detalle', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          file: file,
+          file, // El HTML que estamos editando
+          institucion,
+          modalidad,
+          tipoBeca,
+          enlaceAplicacion: finalUrl,
           requisitos,
           costos,
           extraInfo

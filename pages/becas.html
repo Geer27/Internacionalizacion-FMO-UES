@@ -5,121 +5,347 @@
   <title>Becas | Programa de Internacionalización UES</title>
   <link rel="icon" href="../images/Ues logo.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="../css/styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+      --dark-bg: #1a1a1a;
+      --text-dark: #2d2d2d;
+      --text-light: #f8f9fa;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --box-shadow-light: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+      --box-shadow-hover: 12px 12px 24px #c5c5c5, -12px -12px 24px #ffffff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: var(--text-dark);
+      padding-top: 70px; /* Añadido padding-top para evitar que el navbar tape el contenido */
+    }
+
+    /* Navbar actualizado - Mejorado */
+    .navbar {
+      background: var(--dark-bg) !important;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      margin-right: 10px;
+    }
+
+    .navbar-brand span {
+      font-size: 1.1rem;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-light) !important;
+      padding: 0.7rem 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--secondary-color) !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+    }
+
+    /* Tarjetas unificadas - Mejoradas */
+    .card {
+      border: none;
+      border-radius: 1.2rem; /* Más redondeadas */
+      background: #ffffff;
+      box-shadow: var(--box-shadow-light);
+      transition: var(--transition);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #eee; /* Borde sutil */
+    }
+
+    .card:hover {
+      transform: translateY(-7px); /* Más elevación */
+      box-shadow: var(--box-shadow-hover);
+    }
+
     .card-img-top {
-      height: 200px;
+      height: 220px; /* Altura ajustada */
       object-fit: cover;
+      object-position: center;
+      border-bottom: 3px solid var(--secondary-color);
     }
+
+    .card-body {
+      padding: 1.5rem; /* Padding ajustado */
+    }
+
     .card-title {
-      min-height: 60px;
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.6rem; /* Tamaño ajustado */
+      position: relative;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1rem; /* Margen añadido */
     }
+
+    .card-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px; /* Ancho ajustado */
+      height: 3px;
+      background: var(--secondary-color);
+      border-radius: 1.5px; /* Bordes redondeados en la línea */
+    }
+
     .card-text {
-      min-height: 80px;
+      color: var(--text-dark); /* Asegurar color de texto */
+      font-size: 1.1rem; /* Tamaño de texto ajustado */
+      line-height: 1.6; /* Interlineado ajustado */
     }
-    .btn-primary {
-      background-color: black;
-      border-color: black;
+
+    /* Botones mejorados - Consistentes */
+    .btn-ues {
+      background: var(--primary-color);
+      color: var(--text-light);
+      padding: 1rem 2.5rem; /* Padding aumentado */
+      border-radius: 0.75rem;
+      border: none;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(125, 27, 58, 0.2); /* Sombra sutil */
     }
-    .btn-primary:hover {
-      background-color: #727374;
-      border-color: #5e5e5e;
+
+    .btn-ues:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(125, 27, 58, 0.4);
+    }
+
+    /* Alerta de política - Mejorada */
+    .alert-politica {
+      background: rgba(217, 164, 65, 0.1); /* Fondo más claro */
+      border-left: 5px solid var(--secondary-color); /* Borde más grueso */
+      border-radius: 0.7rem; /* Más redondeado */
+      padding: 1.5rem; /* Padding aumentado */
+      margin-top: 3rem; /* Margen superior aumentado */
+      box-shadow: var(--box-shadow-light); /* Añadida sombra */
+    }
+
+    .alert-politica strong {
+      color: var(--primary-color);
+      font-weight: 600; /* Negrita para el título */
+    }
+
+    /* Footer actualizado - Consistente */
+    footer {
+      background: var(--dark-bg);
+      border-top: 3px solid var(--secondary-color);
+      margin-top: auto;
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+
+    footer img {
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4));
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Animaciones - Consistentes */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      animation: fadeInUp 0.7s ease forwards;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px; /* Ajustar padding-top en móviles si es necesario */
+      }
+
+      .navbar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .navbar-brand span {
+        font-size: 1rem; /* Ajustar tamaño de fuente del brand en móviles */
+      }
+
+      .navbar-nav .nav-link {
+        padding: 0.5rem 0.8rem; /* Ajustar padding de links de navegación en móviles */
+        font-size: 0.95rem; /* Ajustar tamaño de fuente de links en móviles */
+      }
+
+
+      .card-img-top {
+        height: 180px; /* Altura ajustada para móviles */
+      }
+
+      .card-body {
+        padding: 1rem; /* Padding ajustado para móviles */
+      }
+
+      .card-title {
+        font-size: 1.4rem; /* Tamaño de título ajustado para móviles */
+        margin-bottom: 0.8rem; /* Margen ajustado para móviles */
+      }
+
+      .card-text {
+        font-size: 1rem; /* Tamaño de texto ajustado para móviles */
+      }
+
+      .btn-ues {
+        width: 100%; /* Botones ocupan todo el ancho en móviles */
+        padding: 1rem; /* Padding ajustado para móviles */
+      }
+
+      .alert-politica {
+        padding: 1rem; /* Padding ajustado para móviles */
+        margin-top: 2rem; /* Margen ajustado para móviles */
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navbar Oscura con animación en el texto -->
-  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #000;">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="../index.html">
-        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
-        <span>Internacionalización UES</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-        aria-label="Alternar navegación">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="becas.html">Becas</a></li>
-          <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
-          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
-          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
-        </ul>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../images/logouess.png" alt="Logo UES" width="50">
+          <span>Internacionalización UES</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="becas.html">Becas</a></li>
+            <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
+            <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+            <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <!-- Contenido principal -->
-  <main class="container my-5">
-    <h1 class="text-center mb-4">Becas</h1>
+  <main class="container my-5 py-4">
+    <h1 class="text-center mb-5" style="color: var(--primary-color);">Becas Disponibles</h1>
 
-    <!-- Fila de tarjetas (se generarán dinámicamente) -->
     <div class="row row-cols-1 row-cols-md-2 g-4" id="becas-container">
-      <!-- Tarjetas se inyectan aquí con JS -->
-    </div>
+      </div>
 
-    <!-- Política -->
-    <div class="alert alert-warning mt-5" role="alert">
-      <strong>Política:</strong> Somos una oficina que tiene como objetivo proveer información sobre becas. 
-      Los trámites de aplicación son responsabilidad de la persona interesada. Por lo que 
-      <strong>no</strong> tenemos ninguna responsabilidad de cualquier tipo de inconveniente, 
-      estafa o trampa. Favor informarse bien antes de realizar algún procedimiento y verificar 
-      que la fuente sea real y verídica.
+    <div class="alert alert-politica mt-5 p-4">
+      <strong class="d-block mb-2" style="color: var(--primary-color);">Política Institucional:</strong>
+      Somos una oficina dedicada a proveer información sobre oportunidades de becas.
+      Los trámites de aplicación son responsabilidad exclusiva del interesado.
+      <strong>No nos hacemos responsables</strong> por cualquier inconveniente,
+      estafa o situación irregular. Recomendamos verificar minuciosamente
+      la autenticidad de las convocatorias antes de realizar cualquier trámite.
     </div>
   </main>
 
-  <!-- Footer Oscuro -->
-  <footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2024 Universidad de El Salvador</p>
+  <footer>
+    <div class="container">
+      <img src="../images/logouess.png" alt="Logo UES" width="60" class="mb-3">
+      <p class="mb-0">© 2024 Universidad de El Salvador</p>
+    </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Al cargar la página, pedimos las becas al servidor
-    fetch('/api/becas')
-      .then(res => res.json())
-      .then(becas => {
-        const container = document.getElementById('becas-container');
-        becas.forEach(beca => {
-          const col = document.createElement('div');
-          col.className = 'col';
+    document.addEventListener('DOMContentLoaded', () => {
+      const loader = `<div class="col-12 text-center py-5">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                      </div>
+                    </div>`;
 
-          // Recuerda que "imagen" y "link" vendrán de tu JSON
-          col.innerHTML = `
-            <div class="card h-100">
-              <img src="../${beca.imagen}" 
-                   class="card-img-top" 
-                   alt="${beca.titulo}">
-              <div class="card-body">
-                <h5 class="card-title">${beca.titulo}</h5>
-                <p class="card-text">
-                  <strong>Descripción:</strong> ${beca.descripcion}
-                </p>
-              </div>
-              <div class="card-footer text-end bg-white border-0">
-                <a href="${beca.link}" class="btn btn-primary">
-                  Ver más
-                </a>
-              </div>
-            </div>
-          `;
+      const container = document.getElementById('becas-container');
+      container.innerHTML = loader;
 
-          container.appendChild(col);
+      fetch('/api/becas')
+        .then(response => {
+          if (!response.ok) throw new Error('Error en la respuesta del servidor');
+          return response.json();
+        })
+        .then(becas => {
+          container.innerHTML = '';
+          becas.forEach(beca => {
+            const cardHtml = `
+              <div class="col">
+                <div class="card h-100">
+                  <img src="../${beca.imagen}"
+                      class="card-img-top"
+                      alt="${beca.titulo}"
+                      loading="lazy">
+                  <div class="card-body">
+                    <h5 class="card-title">${beca.titulo}</h5>
+                    <p class="card-text">${beca.descripcion}</p>
+                  </div>
+                  <div class="card-footer bg-transparent border-0 pt-0">
+                    <a href="${beca.link}"
+                      class="btn btn-ues"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <i class="fas fa-external-link-alt me-2"></i>Detalles de la beca
+                    </a>
+                  </div>
+                </div>
+              </div>`;
+            container.insertAdjacentHTML('beforeend', cardHtml);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          container.innerHTML = `<div class="col-12 text-center text-danger py-5">
+                                  <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                                  <p>Error al cargar las becas. Intente nuevamente más tarde.</p>
+                                </div>`;
         });
-      })
-      .catch(err => console.error(err));
+    });
   </script>
 </body>
 </html>

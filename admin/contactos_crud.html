@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Contactos | Internacionalización UES</title>
+  <link rel="icon" href="../images/Ues logo.ico">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Estilos personalizados -->
+  <style>
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+      --dark-bg: #1a1a1a;
+      --text-dark: #2d2d2d;
+      --text-light: #f8f9fa;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+    }
+    
+
+    .admin-container {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .form-container {
+      background: var(--text-light);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    }
+
+    .contacto-img-preview {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--secondary-color);
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    }
+
+    .table-custom {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    }
+
+    .table-custom thead {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .table-custom th {
+      font-weight: 600;
+      padding: 1rem;
+    }
+
+    .table-custom td {
+      vertical-align: middle;
+      padding: 1rem;
+    }
+
+    .btn-custom-primary {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.3rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom-primary:hover {
+      background: #6a1632;
+      transform: translateY(-2px);
+    }
+
+    .btn-custom-secondary {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.3rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-custom {
+      border: 2px solid #dee2e6;
+      border-radius: 0.3rem;
+      padding: 0.75rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-custom:focus {
+      border-color: var(--primary-color);
+      box-shadow: none;
+    }
+
+    @media (max-width: 768px) {
+      .contacto-img-preview {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .admin-container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="../images/logouess.png" alt="Logo UES" width="40">
+        <span class="ms-2">Admin Contactos</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Volver al sitio</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container admin-container">
+    <h1 class="mb-4 text-center" style="color: var(--primary-color);">
+      <i class="fas fa-address-book me-2"></i>Administrar Contactos
+    </h1>
+
+    <!-- Formulario -->
+    <div class="form-container mb-5">
+      <form id="contactoForm" enctype="multipart/form-data">
+        <input type="hidden" id="contactoId">
+        
+        <div class="row align-items-center">
+          <div class="col-md-4 mb-4 text-center">
+            <div class="image-upload-container">
+              <img id="imgPreview" src="../images/default-contact.jpg" 
+                   class="contacto-img-preview mb-3">
+              <div class="mt-2">
+                <input type="file" class="form-control input-custom" 
+                       id="imagenInput" accept="image/*">
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-8">
+            <div class="mb-4">
+              <label class="form-label fw-bold">Nombre Completo</label>
+              <input type="text" class="form-control input-custom" 
+                     id="nombreInput" required>
+            </div>
+            
+            <div class="mb-4">
+              <label class="form-label fw-bold">Puesto</label>
+              <input type="text" class="form-control input-custom" 
+                     id="puestoInput" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold">Correo Electrónico</label>
+          <input type="email" class="form-control input-custom" 
+                 id="correoInput" required>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold">Descripción</label>
+          <textarea class="form-control input-custom" 
+                    id="descripcionInput" rows="4" required></textarea>
+        </div>
+
+        <div class="d-flex justify-content-end gap-3">
+          <button type="submit" class="btn btn-custom-primary">
+            <i class="fas fa-save me-2"></i>Guardar
+          </button>
+          <button type="button" class="btn btn-custom-secondary" onclick="cancelEdit()">
+            <i class="fas fa-times me-2"></i>Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-responsive">
+      <table class="table table-custom">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Puesto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="contactosTable">
+          <!-- Datos dinámicos -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Script de funciones (mismo JS que antes con mejoras visuales) -->
+  <script>
+    // JS similar al admin de becas, adaptado para contactos
+    let contactos = [];
+
+    const loadContactos = async () => {
+      try {
+        const response = await fetch('/api/contactos');
+        contactos = await response.json();
+        renderTable();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al cargar los contactos');
+      }
+    };
+
+    const renderTable = () => {
+      const tbody = document.getElementById('contactosTable');
+      tbody.innerHTML = contactos.map(contacto => `
+        <tr>
+          <td><img src="../${contacto.imagen}" class="contacto-img-preview"></td>
+          <td>${contacto.nombre}</td>
+          <td>${contacto.puesto}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" onclick="editContacto(${contacto.id})">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteContacto(${contacto.id})">Eliminar</button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    // Función para eliminar contacto
+    window.deleteContacto = async (id) => {
+      if(confirm('¿Estás seguro de eliminar este contacto?')) {
+        try {
+          const response = await fetch(`/api/contactos/${id}`, {
+            method: 'DELETE'
+          });
+          
+          if(!response.ok) throw new Error('Error al eliminar');
+          
+          alert('Contacto eliminado correctamente');
+          loadContactos();
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Error al eliminar el contacto');
+        }
+      }
+    };
+
+    // Función para cancelar edición
+    window.cancelEdit = () => {
+      resetForm();
+    };
+
+    // Función para resetear formulario
+    const resetForm = () => {
+      document.getElementById('contactoForm').reset();
+      document.getElementById('imgPreview').src = '../images/default-contact.jpg';
+      document.getElementById('contactoId').value = '';
+      document.getElementById('imagenInput').value = '';
+    };
+
+    window.editContacto = (id) => {
+      const contacto = contactos.find(c => c.id === id);
+      if(contacto) {
+        document.getElementById('contactoId').value = contacto.id;
+        document.getElementById('nombreInput').value = contacto.nombre;
+        document.getElementById('puestoInput').value = contacto.puesto;
+        document.getElementById('correoInput').value = contacto.correo;
+        document.getElementById('descripcionInput').value = contacto.descripcion;
+        document.getElementById('imgPreview').src = `../${contacto.imagen}`;
+      }
+    };
+
+    // Configurar submit del formulario
+    document.getElementById('contactoForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData();
+      const id = document.getElementById('contactoId').value;
+      
+      formData.append('nombre', document.getElementById('nombreInput').value);
+      formData.append('puesto', document.getElementById('puestoInput').value);
+      formData.append('correo', document.getElementById('correoInput').value);
+      formData.append('descripcion', document.getElementById('descripcionInput').value);
+      
+      const fileInput = document.getElementById('imagenInput');
+      if(fileInput.files[0]) formData.append('imagen', fileInput.files[0]);
+
+      try {
+        const url = id ? `/api/contactos/${id}` : '/api/contactos';
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+          method: method,
+          body: formData
+        });
+        
+        if(!response.ok) throw new Error('Error en la respuesta');
+        
+        const result = await response.json();
+        alert(id ? 'Contacto actualizado' : 'Contacto creado');
+        loadContactos();
+        resetForm(); // Limpiar formulario después de guardar
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al guardar los cambios');
+      }
+    });
+
+    document.getElementById('imagenInput').addEventListener('change', function(e) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.getElementById('imgPreview').src = event.target.result;
+      }
+      reader.readAsDataURL(this.files[0]);
+    });
+
+    // Inicializar
+    loadContactos();
+</script>
+</body>
+</html>

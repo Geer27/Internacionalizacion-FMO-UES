@@ -1,49 +1,30 @@
 [
   {
     "id": 1,
-    "titulo": "Programa AMITY por Becas Salvadoreño Americano (SASP)",
-    "descripcion": "Programa que permite a estudiantes convertirse en asistentes de español en escuelas estadounidenses..",
-    "imagen": "images/beca1.jpeg",
-    "link": "beca_amity.html"
-  },
-  {
-    "id": 2,
-    "titulo": "Beca UGRAD - Totalmente financiada",
-    "descripcion": "Programa para jóvenes líderes que ofrece un semestre de estudios académicos en una universidad de EE.UU.",
-    "imagen": "images/beca2.jpeg",
-    "link": "beca_ugrad.html"
-  },
-  {
-    "id": 3,
-    "titulo": "Institutos de Estudio de Estados Unidos (SUSI) 2023",
-    "descripcion": "Programa que brinda a jóvenes líderes la oportunidad de aumentar su conocimiento sobre la historia y cultura de EE.UU.",
-    "imagen": "images/beca3.jpeg",
-    "link": "beca_susi.html"
-  },
-  {
-    "id": 4,
-    "titulo": "Programa de Becas YLAI",
-    "descripcion": "Programa para emprendedores que desarrolla habilidades para promover ideas empresariales y fortalecer negocios.",
-    "imagen": "images/beca4.jpeg",
-    "link": "beca_ylai.html"
-  },
-  {
-    "id": 5,
-    "titulo": "vd",
-    "fechaLimite": "45",
-    "descripcion": "bf",
-    "imagen": "images\\4k-moon-astronomy-3d-art-sci-fi-wallpapers4screen.com-1536x864-1738006235941.jpg?v=1738006235945",
-    "link": "beca_vd.html",
+    "titulo": "Programa AMITY por Becas Salvadoreño Americano (SASP por sus siglas en inglés)",
+    "fechaLimite": "Normalmente la convocatoria abre entre de noviembre y diciembre anualmente",
+    "descripcion": "Este es un programa que permite que los estudiantes se conviertan en asistentes de español en escuelas estadounidenses.",
+    "imagen": "images/beca1jpeg-1739902200325.jpeg",
+    "link": "beca_programa-amity-por-becas-salvadoreno-americano-sasp-por-sus-siglas-en-ingles.html",
     "requisitos": [
-      "bgfb"
+      "- Estar actualmente inscrito a tiempo completo en una institución académica (universidad) fuera de los Estados Unidos o haberse graduado no más de 12 meses antes de la fecha de",
+      "inicio del programa.",
+      "- Tener interés en una carrera en educación.",
+      "- Tener suficiente dominio del idioma inglés para participar en el programa.",
+      "- Sea entusiasta sobre compartir su cultura y lengua nativa con los estudiantes de los EE.UU."
     ],
     "costos": [
-      "ghhjhj"
+      "- Tasa de solicitud - US $200 (no reembolsable).",
+      "- Tasa de solicitud de visa - US $185 (aproximadamente).",
+      "- Tarifa SEVIS - US $220.",
+      "- Billete de avión de ida y vuelta - varía (por ubicación y temporada).",
+      "- Cobertura de seguro médico - US$97 por mes (promedio).",
+      "- Dinero para gastos personales - US$250 por mes (mínimo)."
     ],
-    "extraInfo": "htyjhhjjh",
-    "institucion": "Cambridge",
+    "extraInfo": "Aquí para mantenerse informado de las aplicaciones: https://www.facebook.com/EducationUSASLV/",
+    "institucion": "SASP",
     "modalidad": "Presencial",
     "tipoBeca": "Parcial",
-    "enlaceAplicacion": "http://www.google.com"
+    "enlaceAplicacion": "https://amity.org/"
   }
 ]

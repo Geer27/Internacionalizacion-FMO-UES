@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrar Internacionales | UES</title>
+  <link rel="icon" href="../images/Ues logo.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+      --light-bg: #f8f9fa;
+      --dark-text: #2d2d2d;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      min-height: 100vh;
+    }
+
+    .admin-header {
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .form-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .ql-toolbar {
+      border-radius: 6px 6px 0 0;
+      background: #f8f9fa;
+      border-color: #dee2e6 !important;
+    }
+
+    .ql-container {
+      border-radius: 0 0 6px 6px;
+      border-color: #dee2e6 !important;
+      min-height: 200px;
+    }
+
+    .action-buttons .btn {
+      min-width: 100px;
+      transition: all 0.3s ease;
+    }
+
+    .table-custom {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .table-custom thead {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .table-custom th {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .table-custom td img {
+      width: 80px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 2px solid #eee;
+    }
+
+    .btn-edit {
+      background: var(--secondary-color);
+      border-color: var(--secondary-color);
+      color: #fff;
+    }
+
+    .btn-edit:hover {
+      background: #c7912d;
+      border-color: #c7912d;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        margin: 0 -1rem;
+        border-radius: 0;
+      }
+      
+      .table-responsive {
+        margin: 0 -1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar (Asegúrate de incluir tu navbar aquí) -->
+
+  <div class="container py-5">
+    <div class="admin-header">
+        <h1 class="text-center mb-3"><i class="fas fa-globe-americas me-2"></i>Administrar Internacionales</h1>
+        <p class="text-center text-muted">Gestión de contenidos internacionales y colaboraciones</p>
+      </div>
+  
+      <!-- Formulario -->
+      <div class="form-container mb-5">
+        <form id="internacionalForm" enctype="multipart/form-data" class="p-4">
+          <input type="hidden" id="internacionalId">
+          
+          <div class="row g-4">
+            <div class="col-md-8">
+              <div class="form-section">
+                <label class="form-label"><i class="fas fa-heading me-2"></i>Título del Contenido</label>
+                <input type="text" id="titulo" class="form-control form-control-lg" required>
+              </div>
+  
+              <div class="form-section">
+                <label class="form-label"><i class="fas fa-align-left me-2"></i>Descripción Corta</label>
+                <textarea id="descripcion" class="form-control" rows="3" style="height: 120px;" required></textarea>
+              </div>
+  
+              <div class="form-section">
+                <label class="form-label"><i class="fas fa-file-alt me-2"></i>Contenido Completo</label>
+                <div id="editor" style="height: 300px;"></div>
+              </div>
+            </div>
+  
+            <div class="col-md-4">
+              <div class="form-section">
+                <label class="form-label"><i class="fas fa-image me-2"></i>Imagen Principal</label>
+                <div class="card border-dashed">
+                  <div class="card-body text-center">
+                    <i class="fas fa-upload display-4 text-muted mb-3"></i>
+                    <input type="file" id="imagen" class="form-control" accept="image/*" hidden>
+                    <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('imagen').click()">
+                      Seleccionar Archivo
+                    </button>
+                    <small class="d-block mt-2 text-muted">Formatos: JPG, PNG (Max. 2MB)</small>
+                  </div>
+                </div>
+                <div id="imagePreview" class="mt-3 text-center"></div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="d-flex justify-content-end gap-3 mt-4 action-buttons">
+            <button type="button" class="btn btn-lg btn-outline-secondary" id="cancelEdit">
+              <i class="fas fa-times me-2"></i>Cancelar
+            </button>
+            <button type="submit" class="btn btn-lg btn-primary">
+              <i class="fas fa-save me-2"></i>Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+  
+      <!-- Tabla -->
+      <div class="table-custom">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 80px;">ID</th>
+              <th scope="col">Título</th>
+              <th scope="col" style="width: 120px;">Imagen</th>
+              <th scope="col" style="width: 150px;" class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="internacionalesTable" class="table-group-divider">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-exclamation-triangle text-danger me-2"></i>Confirmar Eliminación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de querer eliminar este registro? Esta acción no se puede deshacer.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    // Variables globales
+    let currentId = null;
+    const modal = new bootstrap.Modal('#confirmationModal');
+    let deleteId = null;
+
+    // Configuración Quill
+    const quill = new Quill('#editor', {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline'],
+          ['link', 'blockquote'],
+          [{ 'header': 2 }, { 'header': 3 }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          ['clean']
+        ]
+      }
+    });
+
+    // Función para cargar datos
+    async function loadData() {
+      try {
+        const response = await fetch('../api/internacionales');
+        const data = await response.json();
+        renderTable(data);
+      } catch (error) {
+        console.error("Error cargando datos:", error);
+        showAlert('Error al cargar datos', 'danger');
+      }
+    }
+
+    // Función para renderizar tabla
+    function renderTable(data) {
+      const tbody = document.getElementById('internacionalesTable');
+      tbody.innerHTML = data.map(item => `
+        <tr>
+          <td>${item.id}</td>
+          <td>${item.titulo}</td>
+          <td><img src="../${item.imagen}" class="img-thumbnail" style="height:50px;"></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-warning" onclick="editItem(${item.id})">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteItem(${item.id})">Eliminar</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+// Función para editar (corregida)
+async function editItem(id) {
+  try {
+    const response = await fetch(`../api/internacionales/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    // Llenar formulario
+    document.getElementById('internacionalId').value = data.id;
+    document.getElementById('titulo').value = data.titulo;
+    document.getElementById('descripcion').value = data.descripcion;
+    quill.root.innerHTML = data.contenido;
+    
+    // Actualizar vista previa de imagen
+    document.getElementById('imagePreview').innerHTML = `
+      <div class="card">
+        <img src="../${data.imagen}" class="card-img-top" alt="Imagen actual">
+        <div class="card-body">
+          <small class="text-muted">Imagen actual</small>
+        </div>
+      </div>
+    `;
+
+    document.querySelector('button[type="submit"]').textContent = 'Actualizar';
+    currentId = data.id;
+
+  } catch (error) {
+    console.error("Error editItem:", error);
+    showAlert('Error al cargar el registro: ' + error.message, 'danger');
+  }
+}
+
+// Evento submit del formulario (Versión Mejorada)
+document.getElementById('internacionalForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    try {
+        const formData = new FormData();
+        const imagenInput = document.getElementById('imagen');
+        const titulo = document.getElementById('titulo').value;
+        const descripcion = document.getElementById('descripcion').value;
+        
+        // Validación básica de campos
+        if (!titulo || !descripcion || quill.root.innerHTML === '<p><br></p>') {
+            throw new Error('Todos los campos marcados como requeridos deben ser completados');
+        }
+
+        // Validar tamaño de imagen antes de enviar
+        if (imagenInput.files[0] && imagenInput.files[0].size > 10 * 1024 * 1024) {
+            throw new Error('La imagen no debe superar los 10MB');
+        }
+
+        // Construir FormData
+        formData.append('titulo', titulo);
+        formData.append('descripcion', descripcion);
+        formData.append('contenido', quill.root.innerHTML);
+        
+        if (imagenInput.files[0]) {
+            formData.append('imagen', imagenInput.files[0]);
+        }
+
+        // Determinar método HTTP
+        const url = currentId 
+            ? `../api/internacionales/${currentId}`
+            : '../api/internacionales';
+        
+        const method = currentId ? 'PUT' : 'POST';
+
+        // Enviar solicitud
+        const response = await fetch(url, {
+            method,
+            body: formData
+        });
+
+        // Manejar respuesta
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.error || 'Error desconocido del servidor');
+        }
+
+        // Actualizar UI
+        showAlert(currentId ? 'Registro actualizado' : 'Registro creado', 'success');
+        loadData();
+        resetForm();
+
+    } catch (error) {
+        console.error('Error en submit:', error);
+        showAlert(error.message, 'danger');
+        
+        // Restaurar botón si es necesario
+        document.querySelector('button[type="submit"]').textContent = currentId ? 'Actualizar' : 'Guardar';
+    }
+});
+
+    // Función para resetear formulario
+    function resetForm() {
+      document.getElementById('internacionalForm').reset();
+      quill.root.innerHTML = '';
+      currentId = null;
+      document.querySelector('button[type="submit"]').textContent = 'Guardar';
+      document.getElementById('imagePreview').innerHTML = '';
+    }
+
+    // Función para eliminar
+    async function deleteItem(id) {
+      deleteId = id;
+      modal.show();
+    }
+
+    // Confirmar eliminación
+    document.getElementById('confirmDelete').addEventListener('click', async () => {
+      try {
+        const response = await fetch(`../api/internacionales/${deleteId}`, { 
+          method: 'DELETE' 
+        });
+        
+        if (!response.ok) throw new Error(await response.text());
+        
+        showAlert('Registro eliminado correctamente', 'success');
+        loadData();
+      } catch (error) {
+        showAlert('Error al eliminar: ' + error.message, 'danger');
+      }
+      modal.hide();
+    });
+
+    // Función para mostrar alertas
+    function showAlert(message, type = 'success') {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type} alert-dismissible fade show fixed-top m-3`;
+      alert.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      document.body.prepend(alert);
+      setTimeout(() => alert.remove(), 3000);
+    }
+
+    // Inicialización
+    loadData();
+    document.getElementById('cancelEdit').addEventListener('click', resetForm);
+  </script>
+</body>
+</html>

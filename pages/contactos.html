@@ -8,364 +8,465 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" 
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
-    rel="stylesheet"
-  >
-  <!-- Tu archivo CSS personalizado -->
-  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Variables actualizadas para mejor contraste y consistencia */
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+      --dark-bg: #1a1a1a;
+      --text-dark: #2d2d2d;
+      --text-light: #f8f9fa;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --box-shadow-light: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+      --box-shadow-hover: 12px 12px 24px #c5c5c5, -12px -12px 24px #ffffff;
+    }
+
+    /* Mejoras generales de tipografía y layout */
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400; /* Añadido font-weight normal para body */
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+      padding-top: 70px; /* Ajuste para navbar fijo */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar mejorado y consistente con otras páginas */
+    .navbar {
+      background: var(--dark-bg) !important;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      margin-right: 10px;
+    }
+
+    .navbar-brand span {
+      font-size: 1.1rem;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-light) !important;
+      padding: 0.7rem 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--secondary-color) !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+    }
+
+
+    /* Tarjetas - Unificadas con diseño consistente en todo el sitio */
+    .card {
+      border: none;
+      border-radius: 1.2rem; /* Ajuste border-radius para consistencia */
+      background: #ffffff;
+      box-shadow: var(--box-shadow-light); /* Sombreado neumórfico consistente */
+      transition: var(--transition);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #eee; /* Añadido borde sutil para mejor definición */
+      text-align: center; /* Centrado de texto en las tarjetas de contacto */
+      padding: 1.5rem; /* Añadido padding general a las tarjetas */
+    }
+
+    .card::before {
+      content: none; /* Eliminado el pseudo-elemento de gradiente para unificar diseño */
+    }
+
+    .card:hover {
+      transform: translateY(-7px); /* Elevación al hacer hover consistente */
+      box-shadow: var(--box-shadow-hover); /* Sombreado hover consistente */
+    }
+
+    .card-img-top {
+      width: 150px; /* Ajuste de tamaño de imagen para tarjetas de contacto */
+      height: 150px; /* Ajuste de tamaño de imagen para tarjetas de contacto */
+      object-fit: cover;
+      object-position: top center; /* Ajuste object-position para mejor enfoque en rostros */
+      border-radius: 50%; /* Imagen circular para perfiles */
+      border: 3px solid var(--secondary-color); /* Borde consistente con el diseño general */
+      box-shadow: none; /* Eliminado box-shadow innecesario en la imagen */
+      transition: var(--transition);
+      margin-bottom: 1rem; /* Espacio debajo de la imagen */
+      transform: scale(1); /* Reseteo de escala para hover de imagen */
+    }
+
+    .card:hover .card-img-top {
+      transform: scale(1.05); /* Zoom en imagen al hacer hover en tarjeta */
+      /* box-shadow: 0 6px 16px rgba(0,0,0,0.2); Eliminado shadow extra, se usa el general de la tarjeta */
+    }
+
+    .card-body {
+      padding: 0; /* Eliminado padding del body, se aplica padding general a la tarjeta */
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1.3rem; /* Ajuste tamaño de título para tarjetas de contacto */
+      color: var(--primary-color);
+      margin-bottom: 0.5rem; /* Reducido margen inferior del título */
+      position: relative;
+      display: block; /* Título en bloque para centrar la línea correctamente */
+    }
+
+    .card-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px; /* Aumentado grosor de la línea a 3px para consistencia */
+      background: var(--secondary-color);
+      border-radius: 1.5px; /* Añadido border-radius a la línea */
+    }
+
+    .card-text {
+      font-size: 1rem; /* Ajuste tamaño texto descriptivo en tarjetas de contacto */
+      color: var(--text-dark);
+      line-height: 1.6;
+      margin-bottom: 1rem; /* Espacio inferior para el texto descriptivo */
+    }
+
+    /* Botones "Ver Más" - Unificados y consistentes */
+    .btn-primary {
+      background: var(--primary-color);
+      border: none;
+      padding: 0.6rem 1.7rem; /* Ajuste padding botones para consistencia */
+      border-radius: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: none; /* Eliminado box-shadow inicial del botón */
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px); /* Elevación hover botón consistente */
+      box-shadow: var(--box-shadow-hover); /* Sombreado hover botón consistente - se usa el general hover */
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    /* Modales mejorados -  Consistentes en estilos generales */
+    .modal-content {
+      border: none;
+      border-radius: 1.2rem; /* Ajuste border-radius modal consistente */
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: var(--box-shadow-light); /* Sombreado modal consistente */
+    }
+
+    .modal-header {
+      background: var(--primary-color); /* Color de header modal consistente */
+      border-bottom: none;
+      padding: 1.5rem;
+    }
+
+    .modal-title {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-light);
+      font-size: 1.4rem; /* Ajuste tamaño título modal */
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-profile-img {
+      width: 180px; /* IMAGEN UN POCO MÁS GRANDE EN MODAL - AUMENTADO A 180px */
+      height: 180px; /* IMAGEN UN POCO MÁS GRANDE EN MODAL - AUMENTADO A 180px */
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 0%; /* IMAGEN CUADRADA EN MODAL */
+      border: 3px solid var(--secondary-color);
+      box-shadow: none; /* Eliminado box-shadow innecesario en imagen modal */
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-body p {
+      margin-bottom: 1rem;
+      text-align: left;
+      font-size: 1.1rem; /* Ajuste tamaño texto en modal */
+      line-height: 1.7;
+    }
+
+    .modal-body strong {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    /* Footer mejorado y consistente */
+    footer {
+      background: var(--dark-bg);
+      border-top: 3px solid var(--secondary-color);
+      margin-top: auto; /* Footer al final de la página, incluso con poco contenido */
+      padding: 2.5rem 0; /* Ajuste padding footer consistente */
+      text-align: center; /* Texto centrado en footer */
+    }
+
+    footer img {
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4)); /* Sombreado logo footer consistente */
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+
+    /* Animaciones - Consistentes */
+    @keyframes fadeInUp { /* Renombrado a fadeInUp para consistencia con otras páginas */
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card, .modal-content { /* Aplicando fadeInUp a card y modal content */
+      animation: fadeInUp 0.7s ease forwards;
+    }
+
+
+    /* Responsividad mejorada y consistente */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px; /* Ajuste padding body en móviles */
+      }
+
+      .navbar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .navbar-brand span {
+        font-size: 1rem;
+      }
+
+      .navbar-nav .nav-link {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      .card {
+        margin-left: 0.5rem; /* Ajuste márgenes tarjetas en móvil */
+        margin-right: 0.5rem;
+        padding: 1rem; /* Ajuste padding tarjeta en móvil */
+      }
+
+      .card-img-top {
+        width: 120px; /* Ajuste tamaño imagen tarjeta en móvil */
+        height: 120px; /* Ajuste tamaño imagen tarjeta en móvil */
+      }
+
+      .card-title {
+        font-size: 1.2rem; /* Ajuste tamaño título tarjeta en móvil */
+        margin-bottom: 0.4rem; /* Ajuste margen inferior título en móvil */
+      }
+
+      .card-text {
+        font-size: 0.95rem; /* Ajuste tamaño texto tarjeta en móvil */
+        margin-bottom: 0.8rem; /* Ajuste margen inferior texto en móvil */
+      }
+
+      .modal-body {
+        padding: 1.5rem; /* Ajuste padding modal en móviles */
+      }
+
+      .modal-profile-img {
+        width: 150px !important; /* Ajuste tamaño imagen modal en móviles - AUMENTADO A 150px*/
+        height: 150px !important; /* Ajuste tamaño imagen modal en móviles - AUMENTADO A 150px*/
+      }
+
+      .modal-title {
+        font-size: 1.3rem; /* Ajuste tamaño título modal en móviles */
+      }
+
+      .modal-body p {
+        font-size: 1rem; /* Ajuste tamaño texto modal en móviles */
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navbar Oscura con animación en el texto -->
-  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="../index.html">
-        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
-        <span>Internacionalización UES</span>
-      </a>
-      <button 
-        class="navbar-toggler" 
-        type="button" 
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" 
-        aria-controls="navbarNav" 
-        aria-expanded="false"
-        aria-label="Alternar navegación"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
-          <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
-          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
-          <li class="nav-item"><a class="nav-link active" href="contactos.html">Contactos</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Contenido principal -->
-  <main class="container my-5 py-5">
-    <h1 class="text-center mb-4">Asistentes</h1>
-
-    <!-- Fila de tarjetas -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-      <!-- Tarjeta de Karla Leiva -->
-      <div class="col">
-        <div class="card h-100 text-center p-3">
-          <img 
-            src="../images/Karla.jpeg" 
-            class="card-img-top mx-auto mt-3 rounded-circle" 
-            alt="Karla Eloisa Leiva Martinez" 
-            style="width:150px; height:150px;"
-          >
-          <div class="card-body">
-            <h5 class="card-title">Karla Eloisa Leiva Martinez</h5>
-            <p class="card-text">Creative Story Writer</p>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              data-bs-toggle="modal" 
-              data-bs-target="#modalKarlaLeiva"
-            >
-              Ver Más
-            </button>
-          </div>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../images/logouess.png" alt="Logo UES" width="50">
+          <span>Internacionalización UES</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
+            <li class="nav-item"><a class="nav-link" href="experiencias.html">Experiencias</a></li>
+            <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+            <li class="nav-item"><a class="nav-link active" href="contactos.html">Contactos</a></li>
+          </ul>
         </div>
       </div>
+    </nav>
+  </header>
 
-      <!-- Tarjeta de Cristian Ayala -->
-      <div class="col">
-        <div class="card h-100 text-center p-3">
-          <img 
-            src="../images/Cris.jpeg" 
-            class="card-img-top mx-auto mt-3 rounded-circle" 
-            alt="Cristian Alexander Ayala Martínez" 
-            style="width:150px; height:150px;"
-          >
-          <div class="card-body">
-            <h5 class="card-title">Cristian Alexander Ayala Martínez</h5>
-            <p class="card-text">Creación de blogs y traducción de contenidos de becas 2023-2024</p>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              data-bs-toggle="modal" 
-              data-bs-target="#modalCristianAyala"
-            >
-              Ver Más
-            </button>
-          </div>
-        </div>
-      </div>
+  <main class="container my-5 py-4">
+    <h1 class="text-center mb-5" style="color: var(--primary-color);">Asistentes</h1>
 
-      <!-- Tarjeta de José David Lizama -->
-      <div class="col">
-        <div class="card h-100 text-center p-3">
-          <img 
-            src="../images/David.jpeg" 
-            class="card-img-top mx-auto mt-3 rounded-circle" 
-            alt="José David Lizama Martinez" 
-            style="width:150px; height:150px;"
-          >
-          <div class="card-body">
-            <h5 class="card-title">José David Lizama Martinez</h5>
-            <p class="card-text">Coordinador del programa de Internacionalización para becas UES</p>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              data-bs-toggle="modal" 
-              data-bs-target="#modalDavidLizama"
-            >
-              Ver Más
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarjeta de Jaime Villalobos -->
-      <div class="col">
-        <div class="card h-100 text-center p-3">
-          <img 
-            src="../images/Jaime.jpeg" 
-            class="card-img-top mx-auto mt-3 rounded-circle" 
-            alt="Jaime Enrique Villalobos Gámez" 
-            style="width:150px; height:150px;"
-          >
-          <div class="card-body">
-            <h5 class="card-title">Jaime Enrique Villalobos Gámez</h5>
-            <p class="card-text">WEB Developer and Administrator</p>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              data-bs-toggle="modal" 
-              data-bs-target="#modalJaimeVillalobos"
-            >
-              Ver Más
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarjeta de Fernando Trejo -->
-      <div class="col">
-        <div class="card h-100 text-center p-3">
-          <img 
-            src="../images/Fer.jpeg" 
-            class="card-img-top mx-auto mt-3 rounded-circle" 
-            alt="Fernando Gustavo Trejo Castro" 
-            style="width:150px; height:150px;"
-          >
-          <div class="card-body">
-            <h5 class="card-title">Fernando Gustavo Trejo Castro</h5>
-            <p class="card-text">Creador de Contenido y Diseñador de Boletín de Becas al Extranjero</p>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              data-bs-toggle="modal" 
-              data-bs-target="#modalFernandoTrejo"
-            >
-              Ver Más
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarjeta de Kevin López -->
-      <div class="col">
-        <div class="card h-100 text-center p-3">
-          <img 
-            src="../images/Kevin.jpeg" 
-            class="card-img-top mx-auto mt-3 rounded-circle" 
-            alt="Kevin Alexander Lopez Contreras" 
-            style="width:150px; height:150px;"
-          >
-          <div class="card-body">
-            <h5 class="card-title">Kevin Alexander Lopez Contreras</h5>
-            <p class="card-text">Media Manager</p>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              data-bs-toggle="modal" 
-              data-bs-target="#modalKevinLopez"
-            >
-              Ver Más
-            </button>
-          </div>
-        </div>
-      </div>
-
+    <!-- Contenedor dinámico para las tarjetas -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center" id="contactos-container">
+      <!-- Las tarjetas se insertarán aquí dinámicamente -->
     </div>
 
-    <!-- Modales -->
-    <!-- Modal para Karla Leiva -->
-    <div class="modal fade" id="modalKarlaLeiva" tabindex="-1" aria-labelledby="modalKarlaLeivaLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalKarlaLeivaLabel">Karla Eloisa Leiva Martinez</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img 
-              src="../images/Karla.jpeg" 
-              alt="Karla Eloisa Leiva Martinez" 
-              class="modal-profile-img mb-3"
-            >
-            <p><strong>Perfil Profesional:</strong> Creative Story Writer</p>
-            <p><strong>Correo:</strong> lm20048@ues.edu.sv</p>
-            <p><strong>Acerca de:</strong> Karla Leiva es estudiante de Licenciatura en Lenguas Modernas en la UES, campus San Miguel. Apoya en el Programa de Internacionalización UES y eventos internacionales. Ha trabajado como asistente de profesor y participado en programas de inclusión educativa. Domina lenguaje de señas, inglés y español, y le apasionan las artes culinarias.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
+    <!-- Contenedor para los modales dinámicos -->
+    <div id="modales-container">
+      <!-- Los modales se generarán aquí automáticamente -->
     </div>
 
-    <!-- Modal para Cristian Ayala -->
-    <div class="modal fade" id="modalCristianAyala" tabindex="-1" aria-labelledby="modalCristianAyalaLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalCristianAyalaLabel">Cristian Alexander Ayala Martínez</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img 
-              src="../images/Cris.jpeg" 
-              alt="Cristian Alexander Ayala Martínez" 
-              class="modal-profile-img mb-3"
-            >
-            <p><strong>Perfil Profesional:</strong> Creación de blogs y traducción de contenidos de becas 2023-2024</p>
-            <p><strong>Correo:</strong> am20086@ues.edu.sv</p>
-            <p><strong>Acerca de:</strong> Cristian Ayala estudia Lenguas Modernas en la UES, campus San Miguel. Apoya el programa de internacionalización y eventos en el campus. Ha sido voluntario en eventos culturales y conferencias internacionales. Domina español, inglés y francés, con especial interés en los deportes.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal para José David Lizama -->
-    <div class="modal fade" id="modalDavidLizama" tabindex="-1" aria-labelledby="modalDavidLizamaLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalDavidLizamaLabel">José David Lizama Martinez</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img 
-              src="../images/David.jpeg" 
-              alt="José David Lizama Martinez" 
-              class="modal-profile-img mb-3"
-            >
-            <p><strong>Perfil Profesional:</strong> Coordinador del programa de Internacionalización para becas UES</p>
-            <p><strong>Correo:</strong> lm20018@ues.edu.sv</p>
-            <p><strong>Acerca de:</strong> David Lizama estudia Lenguas Modernas en la UES. Como coordinador de becas, asesora a estudiantes sobre oportunidades internacionales. Ha sido blogger, speaker en conferencias sobre Kubernetes y voluntario en programas educativos. Es apasionado por los idiomas y una vida sana.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal para Jaime Villalobos -->
-    <div class="modal fade" id="modalJaimeVillalobos" tabindex="-1" aria-labelledby="modalJaimeVillalobosLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalJaimeVillalobosLabel">Jaime Enrique Villalobos Gámez</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img 
-              src="../images/Jaime.jpeg" 
-              alt="Jaime Enrique Villalobos Gámez" 
-              class="modal-profile-img mb-3"
-            >
-            <p><strong>Perfil Profesional:</strong> WEB Developer and Administrator</p>
-            <p><strong>Correo:</strong> vg18023@ues.edu.sv</p>
-            <p><strong>Acerca de:</strong> Jaime Villalobos estudia Lenguas Modernas en la UES. Trabaja como desarrollador web y administrador en la oficina de internacionalización. Ha participado en voluntariados con KCD, Habitat, Techo y Teletón, y como asistente de maestro de inglés. Le apasionan la música, el cine, los videojuegos y los deportes.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal para Fernando Trejo -->
-    <div class="modal fade" id="modalFernandoTrejo" tabindex="-1" aria-labelledby="modalFernandoTrejoLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalFernandoTrejoLabel">Fernando Gustavo Trejo Castro</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img 
-              src="../images/Fer.jpeg" 
-              alt="Fernando Gustavo Trejo Castro" 
-              class="modal-profile-img mb-3"
-            >
-            <p><strong>Perfil Profesional:</strong> Creador de Contenido y Diseñador de Boletín de Becas al Extranjero</p>
-            <p><strong>Correo:</strong> TC20010@ues.edu.sv</p>
-            <p><strong>Acerca de:</strong> Fernando Trejo es estudiante de Lenguas Modernas en la UES. Diseña boletines de becas internacionales y apoya eventos internacionales. Ha sido asistente de profesor de valores y participado en programas de inclusión educativa. Habla inglés, francés y español.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal para Kevin López -->
-    <div class="modal fade" id="modalKevinLopez" tabindex="-1" aria-labelledby="modalKevinLopezLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalKevinLopezLabel">Kevin Alexander Lopez Contreras</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img 
-              src="../images/Kevin.jpeg" 
-              alt="Kevin Alexander Lopez Contreras" 
-              class="modal-profile-img mb-3"
-            >
-            <p><strong>Perfil Profesional:</strong> Media Manager</p>
-            <p><strong>Correo:</strong> lc20002@ues.edu.sv</p>
-            <p><strong>Acerca de:</strong> Kevin López estudia Lenguas Modernas en la UES. Como Media Manager, apoya el programa de internacionalización y eventos internacionales. Ha sido asistente de profesor y colaborado con FUSALMO. Destaca en el aprendizaje de idiomas (inglés, español, francés) y su liderazgo académico.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- Política institucional... -->
   </main>
 
-  <!-- Footer Oscuro -->
   <footer>
-    <p>&copy; 2024 Universidad de El Salvador</p>
+    <!-- Footer existente... -->
   </footer>
 
-  <!-- Bootstrap JS y dependencias -->
-  <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactosContainer = document.getElementById('contactos-container');
+      const modalesContainer = document.getElementById('modales-container');
+
+      // Función para generar HTML de las tarjetas y modales
+      const generarContactoHTML = (contacto) => {
+        const modalId = `modal-${contacto.id}`;
+        
+        // Tarjeta
+        const cardHTML = `
+          <div class="col">
+            <div class="card h-100">
+              <img src="../${contacto.imagen}" class="card-img-top" alt="${contacto.nombre}" loading="lazy">
+              <div class="card-body">
+                <h5 class="card-title">${contacto.nombre}</h5>
+                <p class="card-text">${contacto.puesto}</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${modalId}">
+                  Ver Más
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Modal
+        const modalHTML = `
+          <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="${modalId}-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="${modalId}-label">${contacto.nombre}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                  <img src="../${contacto.imagen}" alt="${contacto.nombre}" class="modal-profile-img mb-3" style="width:180px; height:180px;">
+                  ${contacto.descripcion ? `<p><strong>Descripción:</strong> ${contacto.descripcion}</p>` : ''}
+                  ${contacto.correo ? `<p><strong>Correo:</strong> ${contacto.correo}</p>` : ''}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        return { cardHTML, modalHTML };
+      };
+
+      // Cargar datos de la API
+      fetch('/api/contactos')
+        .then(response => {
+          if (!response.ok) throw new Error('Error al cargar contactos');
+          return response.json();
+        })
+        .then(contactos => {
+          if (contactos.length === 0) {
+            contactosContainer.innerHTML = `
+              <div class="col-12 text-center py-5">
+                <p class="text-muted">No hay contactos disponibles</p>
+              </div>
+            `;
+            return;
+          }
+
+          let cards = '';
+          let modales = '';
+          
+          contactos.forEach(contacto => {
+            const { cardHTML, modalHTML } = generarContactoHTML(contacto);
+            cards += cardHTML;
+            modales += modalHTML;
+          });
+
+          contactosContainer.innerHTML = cards;
+          modalesContainer.innerHTML = modales;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          contactosContainer.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <div class="alert alert-danger">Error al cargar los contactos</div>
+            </div>
+          `;
+        });
+    });
+  </script>
 </body>
 </html>

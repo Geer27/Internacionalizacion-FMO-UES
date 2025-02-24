@@ -5,90 +5,264 @@
   <title>Experiencias | Programa de Internacionalización UES</title>
   <link rel="icon" href="../images/Ues logo.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Tu archivo CSS -->
-  <link rel="stylesheet" href="../css/styles.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* CSS personalizado para uniformar las imágenes */
-    .card-img-custom {
-      height: 400px; /* Altura fija para todas las imágenes */
-      object-fit: cover; /* Ajuste para cubrir el contenedor sin distorsión */
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+      --dark-bg: #1a1a1a;
+      --text-dark: #2d2d2d;
+      --text-light: #f8f9fa;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --box-shadow-light: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+      --box-shadow-hover: 12px 12px 24px #c5c5c5, -12px -12px 24px #ffffff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: var(--text-dark);
+      padding-top: 70px; /* Ajuste para navbar fijo */
+    }
+
+    /* Navbar actualizado - Mejorado y consistente con index.html */
+    .navbar {
+      background: var(--dark-bg) !important;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      margin-right: 10px;
+    }
+
+    .navbar-brand span {
+      font-size: 1.1rem;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-light) !important;
+      padding: 0.7rem 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--secondary-color) !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+    }
+
+    /* Tarjetas para la página de experiencias - Mejoradas y consistentes con becas.html */
+    .card {
+      border: none;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      box-shadow: var(--box-shadow-light);
+      transition: var(--transition);
+      background-color: #fff;
+      border: 1px solid #eee;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--box-shadow-hover);
+    }
+
+    .card-img-top {
+      height: 250px; /* Ajuste de altura */
+      object-fit: cover;
+      object-position: center;
+      border-bottom: 3px solid var(--secondary-color);
+    }
+
+    .card-body {
+      padding: 1.5rem; /* Padding consistente */
+    }
+
+    .card-title {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.7rem; /* Tamaño de fuente consistente */
+      position: relative;
+      padding-bottom: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary-color);
+      border-radius: 1.5px;
+      transform: translateX(0); /* Asegurar que la línea inicie desde la izquierda */
+    }
+
+    .card-text {
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* Footer - Consistente con index.html y becas.html */
+    footer {
+      background: var(--dark-bg);
+      border-top: 3px solid var(--secondary-color);
+      margin-top: auto;
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+
+    footer img {
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4));
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Animaciones - Consistentes */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      animation: fadeInUp 0.7s ease forwards;
+    }
+
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px; /* Ajuste padding en móviles */
+      }
+
+      .navbar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .navbar-brand span {
+        font-size: 1rem;
+      }
+
+      .navbar-nav .nav-link {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      .card-img-top {
+        height: 200px; /* Altura ajustada en móviles */
+      }
+
+      .card-title {
+        font-size: 1.5rem; /* Ajuste tamaño título en móviles */
+        margin-bottom: 1rem;
+      }
+
+      .card-body {
+        padding: 1rem; /* Padding ajustado en móviles */
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navbar Oscura con animación en el texto -->
-  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="../index.html">
-        <img src="../images/logouess.png" alt="Logo UES" width="50" class="me-2">
-        <span>Internacionalización UES</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-        aria-label="Alternar navegación">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
-          <li class="nav-item"><a class="nav-link active" href="experiencias.html">Experiencias</a></li>
-          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
-          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Contenido principal -->
-  <main class="container my-5">
-    <h1 class="text-center mb-4">Experiencias</h1>
-
-    <!-- Fila de tarjetas -->
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-
-      <!-- Tarjeta de la primera experiencia -->
-      <div class="col">
-        <div class="card h-100">
-          <div class="image-container">
-            <img src="../images/Isabel.jpeg" class="card-img-top card-img-custom" alt="Imagen Experiencia 1">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Experiencia de Estudiante en Estados Unidos</h5>
-            <p class="card-text">Descubre cómo nuestro estudiante vivió una experiencia inolvidable en una universidad de EE.UU.</p>
-          </div>
-          <a href="experiencia_1.html" class="stretched-link"></a>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../images/logouess.png" alt="Logo UES" width="50">
+          <span>Internacionalización UES</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
+            <li class="nav-item"><a class="nav-link active" href="experiencias.html">Experiencias</a></li>
+            <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+            <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+          </ul>
         </div>
       </div>
+    </nav>
+  </header>
 
-      <!-- Tarjeta de la segunda experiencia -->
-      <div class="col">
-        <div class="card h-100">
-          <div class="image-container">
-            <img src="../images/Bernal2.jpeg" class="card-img-top card-img-custom" alt="Imagen Experiencia 2">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Intercambio Cultural en Francia</h5>
-            <p class="card-text">Una aventura académica y cultural en el corazón de Europa.</p>
-          </div>
-          <a href="experiencia_2.html" class="stretched-link"></a>
-        </div>
+  <main class="container my-5 py-4">
+    <h1 class="text-center mb-4" style="color: var(--primary-color);">Experiencias</h1>
+    <div id="experienciasContainer" class="row row-cols-1 row-cols-md-2 g-4">
       </div>
-
-      <!-- Puedes agregar más tarjetas según sea necesario -->
-
-    </div>
-
   </main>
 
-  <!-- Footer Oscuro -->
   <footer>
-    <p>&copy; 2024 Universidad de El Salvador</p>
+    <div class="container text-center">
+      <img src="../images/logouess.png" alt="Logo UES" width="60" class="mb-3">
+      <p class="mb-0">© 2024 Universidad de El Salvador</p>
+    </div>
   </footer>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function loadExperiencias() {
+      fetch('/api/experiencias')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById("experienciasContainer");
+          container.innerHTML = "";
+          data.forEach(exp => {
+            const col = document.createElement("div");
+            col.className = "col";
+            col.innerHTML = `
+              <div class="card h-100">
+                <img src="../${exp.imagen}" class="card-img-top" alt="${exp.titulo}" loading="lazy">
+                <div class="card-body">
+                  <h5 class="card-title">${exp.titulo}</h5>
+                  <p class="card-text">${exp.descripcion.substring(0, 100)}...</p>
+                </div>
+                <a href="../pages/${exp.link}" class="stretched-link"></a>
+              </div>
+            `;
+            container.appendChild(col);
+          });
+        })
+        .catch(error => console.error("Error cargando experiencias:", error));
+    }
+
+    // Cargar las experiencias al iniciar la página
+    loadExperiencias();
+  </script>
 </body>
 </html>

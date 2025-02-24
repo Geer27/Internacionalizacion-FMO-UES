@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>KEVIN BERNAL | Experiencias UES</title>
+  <link rel="icon" href="../images/Ues logo.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #7D1B3A;
+      --secondary-color: #D9A441;
+      --accent-color: #2C5F2D;
+      --dark-bg: #1a1a1a;
+      --text-dark: #2d2d2d;
+      --text-light: #f8f9fa;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: var(--dark-bg) !important;
+      border-bottom: 3px solid var(--secondary-color);
+      padding: 0.5rem 0;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .navbar-brand img {
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover img {
+      transform: rotate(360deg);
+    }
+
+    .nav-link {
+      position: relative;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem !important;
+      transition: var(--transition);
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::before {
+      width: 100%;
+    }
+
+    .experiencia-header {
+      text-align: center;
+      padding: 4rem 0 2rem;
+      position: relative;
+    }
+
+    .experiencia-title {
+      font-weight: 700;
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+
+    .experiencia-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
+
+    .experiencia-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 8px 8px 16px rgba(0,0,0,0.1);
+      margin: 2rem 0;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .experiencia-img:hover {
+      transform: translateY(-5px);
+      box-shadow: 12px 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .experiencia-content {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 2.5rem;
+      margin: 2rem auto;
+      box-shadow: 8px 8px 16px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experiencia-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--secondary-color);
+    }
+
+    .content-label {
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .content-label::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-color);
+      font-size: 1.4rem;
+    }
+
+    footer {
+      background: var(--dark-bg);
+      border-top: 3px solid var(--secondary-color);
+      margin-top: auto;
+      padding: 2rem 0;
+      position: relative;
+    }
+
+    footer img {
+      transition: transform 0.3s ease;
+    }
+
+    footer img:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .experiencia-img {
+        height: 300px;
+        margin: 1rem 0;
+      }
+
+      .experiencia-content {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+
+      .experiencia-title {
+        font-size: 1.8rem;
+      }
+
+      .nav-link {
+        margin: 0.25rem 0;
+        padding: 0.5rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <img src="../images/logouess.png" alt="Logo UES" width="50">
+        <span>Internacionalización UES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="becas.html">Becas</a></li>
+          <li class="nav-item"><a class="nav-link active" href="experiencias.html">Experiencias</a></li>
+          <li class="nav-item"><a class="nav-link" href="internacionales.html">Internacionales</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="experiencia-header">
+      <h1 class="experiencia-title">KEVIN BERNAL</h1>
+    </div>
+
+    <img src="../images/bernal2jpeg-1739903127581.jpeg" 
+         alt="KEVIN BERNAL" 
+         class="experiencia-img">
+
+    <div class="experiencia-content">
+      <p><span class="content-label">Reseña:</span> Kevin Bernal es estudiante de la carrera de Licenciatura en Lenguas Modernas en la Universidad de El Salvador, campus San Miguel (Facultad Multidisciplinaria Oriental). Este brillante y tenaz estudiante tuvo el placer de visitar Francia para trabajar como asistente de español, por un periodo de 7 meses. Bernal trabajó en las escuelas francesas; LP Aristide Briand y Jean Rostand. Dichas instituciones educativas están ubicadas en la región de Normandía.
+
+Beneficios obtenidos gracias a esta experiencia internacional
+“Gracias a esta oportunidad pude mejorar mi comprensión y fluidez en el idioma francés, al terminar mi tiempo en Francia me sentía completamente diferente al utilizar el idioma, mi confianza aumentó muchísimo. Otro beneficio es tener la oportunidad de viajar por Francia y otros países de Europa.”
+
+Proceso de Aplicación
+Este estudiante universitario se dio cuenta de la convocatoria para aplicar mediante las redes sociales oficiales del Ministerio de Educación Francés y la Alianza Francesa en El Salvador. En el año 2022, Bernal aplicó al programa para ser asistente de español en Francia, proceso el cual finalizó exitosamente</p>
+      
+      
+    </div>
+  </main>
+
+  <footer>
+    <div class="container text-center">
+      <img src="../images/logouess.png" alt="Logo UES" width="60" class="mb-3">
+      <p class="mb-0">© 2024 Universidad de El Salvador</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
